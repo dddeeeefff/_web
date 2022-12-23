@@ -77,3 +77,78 @@ pageEncoding="utf-8" : 기본값 ISO-8859-1. 현재 페이지의 문자 인코딩 설정으로 유�
  - 문법
 <%=변수 or 메소드리턴값 or 수식 등의 출력할 값 %>
  - 출력할 값이 하나일 경우 <% out.println(출력할 값); %>을 사용하는 것보다 간편하게 출력시킬 수 있음
+
+
+3. 내장객체
+ - JSP에서 따로 import하지 않고도 사용할 수 있는 객체(클래스)들로 서블릿에서는 직접 import하여 인스턴스를 생성하거나 매개변수로 받아와야 함
+ - JSP에서는 자동으로 미리 인스턴스(이름도 정해져 있음)가 생성되어 있음
+
+1) request 객체
+ - javax.servlet.http.HttpServletRequest 클래스의 인스턴스
+ - 사용자의 요청 정보(url) 및 전송 정보(컨트롤이나 쿼리스트링 등을 통해 서버로 보내는 데이터)가 들어있는 객체
+ - 주요 메소드
+리턴타입			메소드 및 설명
+String			getParameter(String name)
+ : name의 이름으로 지정된 컨트롤 또는 매개변수의 값을 문자열로 리턴하는 메소드로 해당 매개변수가 없으면 null을 입력
+ : 매개변수 - 쿼리스트링의 변수나 폼 안의 컨트롤을 의미
+ : 컨트롤의 이름이 틀리거나 값이 없으면 null을 리턴하나 text와 password, textarea 등은 값이 없으면 빈 문자열을 리턴
+
+String[]		getParametervalues(String name)
+ : name의 이름으로 지정된 컨트롤 또는 매개변수의 값들을 문자열 배열로 리턴하는 메소드로 같은 이름의 매개변수가 여럿 있을 경우 사용됨
+ : 같은 이름의 컨트롤이 여럿 있을 경우에도 해당하며, 이 때 같은 이름의 컨트롤들이 반드시 같은 종류일 필요는 없음
+
+Enumeration		getParameterNames()
+ : 전달된 모든 파라미터의 이름들을 java.util.Enumeration 형의 인스턴스로 리턴
+ : Enumeration 안에 들어가는 데이터는 제네릭으로 String만 들어가도록 정해져 있음
+
+ - 헤더 관련 메소드
+리턴타입			메소드 및 설명
+string			getHeader(String headerName)
+ : http 요청 헤더에 headerName으로 지정된 이름으로 할당된 값을 리턴하며, 없으면 null 
+Enumeration gerHeader(String headerName)
+ : http 요청 헤더에 headerName으로 지정된 이름으로 할당된 값들을 java.util.Enumeration 형의 인스턴스로 리턴
+Enumeration gerHeaderNames()
+ : http 요청 헤더에 있는 모든 헤더의 이름들을 java.util.Enumeration 형의 인스턴스로 리턴
+int				getIntHeader(String headerName)
+ : http 요청 헤더에 headerName으로 지정된 이름으로 할당된 값을 int형으로 리턴하면, int로 변환할 수 없을 경우 NumberFormatException이 발생하고, headerName으로 지정된 이름이 없을 경우 -1을 리턴
+
+ - 쿠키, URL/URI, 요청방식 관련 메소드들
+리턴타입			메소드명 및 설명
+Cookie[]	getCookies() : 헤더에 포함된 쿠키들을 javax.servlet.http.Cookie 형 인스턴스 배열로 리턴
+String		getServerName() : 서버의 도메인명을 리턴
+int			getServerPort() : 서버의 포트번호를 리턴
+StringBuffer getRequestURL() : 요청 URL을 StringBuffer형 인스턴스로 리턴
+String		getRequestURI() : 요청 URI를 String형 인스턴스로 리턴
+String		getQueryString() : 요청에 사용된 쿼리스트링을 리턴
+String		getRemoteHost() : 클라이언트의 호스트 이름을 리턴
+String		getRemoteAddr() : 클라이언트의 IP주소를 리턴
+String		getProtocol() : 요청에 사용된 프로토콜 이름을 리턴
+String		getMethod() : 요청에 사용된 요청 방식(GET, POST 등)을 문자열로 리턴
+String		getContextPath() : 해당 JSP 페이지의 경로를 리턴
+
+2) response 객체
+ - javax.servlet.http.HttpServletResponse 클래스의 인스턴스
+ - 사용자의 요청(request)에 대한 응답을 나타내는 객체
+리턴타입	메소드명 및 설명
+void	setHeader(String headerName, String hedaerValue)
+ : 응답에 포함될 헤더 정보에 headerName의 이름으로 hedaerValue 값을 추가
+void	addCookie(Cookie cookie) : javax.servlet.http.Cookie 타입의 인스턴스를 응답 헤더에 추가
+void	sendRedirect(String url) : 지정된 url로 이동시킴
+void	setContentType(String type) :  응답할 페이지의 contentType을 설정
+
+3) pageContext 객체
+ - javax.servlet.jsp.PageContext 클래스의 인스턴스
+ - 다른 내장 객체를 리턴받거나 현재 페이지의 요청과 응답의 제어권을 다른 데이지로 넘겨주는데 사용됨
+ - 주요 메소드
+리턴타입			메소드명 및 설명
+ServletRequest	getRequest() : 사용자의 요청 정보를 담은 객체(request)를 리턴
+ServletResponse	getResponse() : 사용자의 요청에 대한 응답 정보를 담은 객체(response)를 리턴
+JspWriter		getOut() : 응답 출력 스트림 객체(out)를 리턴
+Object			getServletConfig() : 서블릿의 초기 설정 정보를 담은 객체(config)를 리턴
+HttpSession		getSession() : 세션 객체(session)를 리턴
+★void			forward(String url) : 현재 페이지의 요청과 응답에 대한 제어권을 url로 지정된 페이지로 영구적으로 넘김
+ - 제어권을 넘긴다는 것은 request와 response 객체를 forward()로 이동한 곳(파일)에서 자유롭게 사용할 수 있다는 의미
+★void			include(String url) : 현재 페이지의 요청과 응답에 대한 제어권을 url로 지정된 페이지로 임시로 넘김
+ - include된 페이지의 처리가 끝나면 제어권은 다시 원래의 페이지로 돌아옴
+ - 따라서 include로 지정된 페이지의 내용을 원래 페이지에 삽입하는 효과를 줌
+ - page 지시어의 include와는 다르게 겉의 파일에서 선언한 변수 등을 include된 파일에서는 사용할 수 없음

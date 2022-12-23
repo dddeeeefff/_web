@@ -8,7 +8,8 @@
 </head>
 <body>
 <h2>데이터 전송(get 방식)</h2>
-<form name="frmGet" action="data_proc.jsp" method="get">
+<form name="frmGet" action="data_proc.jsp?t1=v1&t2=v2" method="get">
+<!-- get방식으로 전송할 경우 action의 url에 쿼리스트링을 붙이면 그 데이터는 전송되지 않음 -->
 <input type="hidden" name="kind" value="a" /><br />
 <label for="uid">아이디 : </label>
 <input type = "text" name="uid" id="uid" /><br />
@@ -18,7 +19,8 @@
 </form>
 <hr />
 <h2>데이터 전송(post 방식)</h2>
-<form name="frmPost" action="data_proc.jsp" method="post">
+<form name="frmPost" action="data_proc.jsp?t1=v1&t2=v2" method="post">
+<!-- post방식으로 전송할 경우 action의 url에 쿼리스트링을 붙이면 그 데이터도 전송됨 -->
 <input type="hidden" name="kind" value="b" />
 <label for="name">이름 : </label>
 <input type="text" name="name" id="name" /><br />
