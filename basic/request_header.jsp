@@ -20,7 +20,6 @@ out.println(); %>
 </td>
 </tr>
 
-<!-- 정리 요망 -->
 
 <tr>
 <td>서버 도메인명</td>
@@ -43,26 +42,17 @@ out.println(); %>
 <tr>
 <td>요청 URL</td>
 <td>
-<%StringBuffer URL =request.getRequestURL();
-out.println(URL);
+<%StringBuffer url =request.getRequestURL();
+out.println(url);
 out.println(); %>
 </td>
 </tr>
 
 <tr>
-<td>요청  URI</td>
+<td>요청 URI</td>
 <td>
-<%String uri = request.getRequestURI();
+<%String uri =request.getRequestURI();
 out.println(uri);
-out.println(); %>
-</td>
-</tr>
-
-<tr>
-<td>요청  URI</td>
-<td>
-<%String qs = request.getQueryString();
-out.println(qs);
 out.println(); %>
 </td>
 </tr>
@@ -70,8 +60,8 @@ out.println(); %>
 <tr>
 <td>쿼리스트링</td>
 <td>
-<%String rh = request.getRemoteHost();
-out.println(rh);
+<%String qs =request.getQueryString();
+out.println(qs);
 out.println(); %>
 </td>
 </tr>
@@ -79,8 +69,8 @@ out.println(); %>
 <tr>
 <td>클라이언트 호스트명</td>
 <td>
-<%String ra = request.getRemoteAddr();
-out.println(ra);
+<%String rh =request.getRemoteHost();
+out.println(rh);
 out.println(); %>
 </td>
 </tr>
@@ -88,49 +78,38 @@ out.println(); %>
 <tr>
 <td>클라이언트 IP주소</td>
 <td>
-<%String pl = request.getProtocol();
-out.println(pl);
+<%String ra =request.getRemoteAddr();
+out.println(ra);
 out.println(); %>
 </td>
 </tr>
 
 <tr>
-<td>요청 방식</td>
+<td>프로토콜 이름</td>
 <td>
-<%String mtd = request.getMethod();
-out.println(mtd);
+<%String p =request.getProtocol();
+out.println(p);
 out.println(); %>
 </td>
 </tr>
 
 <tr>
-<td>JSP 경로</td>
+<td>요청방식</td>
 <td>
-<%String cp = request.getContextPath();
+<%String m =request.getMethod();
+out.println(m);
+out.println(); %>
+</td>
+</tr>
+
+<tr>
+<td>JSP경로</td>
+<td>
+<%String cp =request.getContextPath();
 out.println(cp);
-out.println();
-%>
+out.println(); %>
 </td>
 </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </table>
 </body>
