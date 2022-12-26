@@ -19,5 +19,9 @@ String name = request.getParameter("name");
 <h2>page context2</h2>
 idx : <%=idx %> / val : <%=val %><br />
 num : <%=num %> / name : <%=name %><br />
+<hr />
+<%
+pageContext.include("page_context3.jsp");
+%>
 </body>
 </html>
