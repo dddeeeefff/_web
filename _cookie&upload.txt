@@ -1,0 +1,71 @@
+쿠키(Cookie)
+ - 쿠키는 클라이언트 쪽에 저장되어 관리되는 정보(텍스트)들을 의미
+ 	세션은 서버의 메모리에 저장되고, 쿠키는 클라이언트의 하드에 저장
+ - 쿠키는 세션과 다르게 브라우저가 종료되거나, 컴퓨터가 꺼져도 정보가 유지됨
+ 	쿠키는 생존기간을 지정할 수 있어서 그 기간에 따라 달라짐
+ - 쿠키는 클라이언트 쪽에 저장되므로 보안에 매우 취약함
+ 	보안이 필요한 데이터는 쿠키에 저장하지 않는 것이 좋음
+ - 쿠키는 HTTP 헤더를 이용한 방법과 서블릿 API를 이용한 방법 두 가지가 있음
+ - 쿠키는 사용자의 브라우저 세팅에 따라 동작이 안될 수 있으므로 쿠키 사용이 불가할 경우 대해서도 작업해 놔야 함
+
+1) HTTP 헤더를 이용한 쿠키 설정
+ - 문법
+Set-Cookie:name=value; expires=date; domain=domain; path=path; secure
+	name : 쿠키의 이름
+	expires : 쿠키의 만료기간(만료기간이 지나면 자동으로 소멸)
+	domain : 해당 사이트의 도메인명
+	path : 쿠키가 전송될 서버의 URL
+	secure : 보안 채널(SSL)로 전송되어야 함
+
+ - 속성들 중 name과 value만 필수요소임
+ - expires는 생략하면 브라우저 종료시 쿠키도 소멸함
+
+2) 서블릿 API를 이용한 방법
+ - 일반적인 자바의 객체처럼 Cookie 클래스의 인스턴스를 생성하여 작업
+ - 쿠키 인스턴스 생성 : Cookie 쿠키명 = new Cookie(String name, String value);
+ - 쿠키 인스턴스 생성만으로 쿠키가 클라이언트 PC의 하드에 저장되는 것은 아니며, 생성한 쿠키 인스턴스를 클라이언트에 전송해야 함
+ 	response.addCookie(쿠키 인스턴스);	// 지정된 쿠키를 클라이언트 PC에 저장함
+ - 주요 메소드
+리턴타입	메소드명 및 설명
+String	getMaxAge() : 쿠키의 만료기간을 리턴
+String	getName() : 쿠키의 이름을 리턴
+String	getValue() : 쿠키의 값을 리턴
+void	setMaxAge(int seconds) : 쿠키의 만료기간을 초단위로 지정
+void	setValue(String value) : 쿠키의 값을 지정
+
+
+파일 업로드
+ - 자바에서의 파일 업로드는 'cos.jar' 라이브러리와 이용하는 방법과 Servlet3.0 이상부터 제공되는 Part 인터페이스를 이용하는 방법 두 가지가 있음
+ - 폼 태그의 enctype 속성의 값을 'multipart/form-data'로, method속성은 'post'fj 설정해야 함
+ 	enctype 속성의 값을 생략하면 모든 컨트롤러의 값을 문자열로 받게 됨
+
+1. cos.jar 라이브러리 사용
+ - http://servlets.com/ 사이트에서 'cos.jar' 파일을 다운받아 '프로젝트폴더/WebContent/WEB-INF/lib' 폴더에 복사한 후 이클립스를 '새로 고침'하여 사용
+ - 'cos.jar'에 있는 메소드들은 기본적으로 예외처리를 하면서 작업해야 함(try-catch문 사용)
+
+MultipartRequest 클래스
+ - cos 라이브러리에서 가장 핵심적인 역할(파일 업로드 담당)을 하는 클래스
+ - 생성자
+MultipartRequest(
+	javax.servlet.http.HttpServlet.Request request,
+	String saveDirectory,
+	int maxPostSize,
+	String encoding,
+	FileRenamePolicy policy
+)
+
+ - 생성자의 매개변수들
+ 	request : 사용자의 요청정보가 들어있는 request 객체
+	saveDirectory : 업로드한 파일이 저장될 서버에서의 실제 경로(real path)
+	maxPostSize : 한 번에 업로드 할 수 있는 최대 용량(byte 단위)
+	encoding : 파일 이름의 인코딩 방식(utf-8)
+	policy : 파일 이름 중복 처리를 위한 클래스 객체로 기본값을 new DefaultFileRenamePolicy()
+
+ - 주요 메소드
+리턴타입		메소드명 및 설명
+Enumeration	getParameterNames() : 폼에서 전송된 파라미터들 중 file이 아닌 컨트롤들의 이름들을 리턴
+String[]	getParameterValues() : 전송된 파라미터들 중 동일한 이름으로 여러 컨트롤이 존재할 경우 배열로 리턴
+String		getParameter(String name) : 지정된 name의 파라미터 값을 리턴
+Enumeration	getFileNames() : 파일을 여러 개 업로드할 때 file 컨트롤들의 이름을 리턴
+String		getFilesystemName() : 사용자가 업로드한 파일의 원본 이름을 리턴
+String		getContentType() : 업로드된 파일의 타일을 리턴
