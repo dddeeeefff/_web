@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../_inc/inc_head.jsp" %>
+
+<%
+request.setCharacterEncoding("utf-8");
+int cpage = Integer.parseInt(request.getParameter("cpage"));
+int idx = Integer.parseInt(request.getParameter("idx"));
+String ctgr = "", title = "", content = "", date = "";
+int read = 0;
+
+try{
+	stmt = conn.createStatement();
+	sql = "update t_bbs_notice set bn_read = bn_read + 1 where bn_idx = " + idx;
+	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
+	
+	sql = "select * from t_bbs_notice where bn_idx = " + idx;
+	rs = stmt.executeQuery(sql);
+	if (rs.next()) {
+		ctgr = rs.getString("bn_ctgr");
+		title = rs.getString("bn_title");
+		content = rs.getString("bn_content").replace("\r\n", "<br />");
+		// 엔터(\r\n)를 <br />태그로 변경하여 content변수에 저장
+		date = rs.getString("bn_date");
+		read = rs.getInt("bn_read");
+		
+	}else {
+		out.println("<script>");
+		out.println("alert('존재하지 않는 게시물입니다.');");
+		out.println("history.back();");
+		out.println("</script>");
+		out.close();
+	}
+	
+	
+}catch(Exception e){
+	out.println("공지사항 글보기시 문제가 발생했습니다.");
+	e.printStackTrace();	
+} finally {
+	try{
+		rs.close();		stmt.close();
+	}catch(Exception e){e.printStackTrace();}
+}
+
+%>
+<h2>공지사항 글 보기</h2>
+<table width="600" cellpadding="5">
+<tr>
+<th width="15%">작성일</th>
+<td width="35%"><%=date %></td>
+<th width="15%">조회수</th>
+<td width="35%"><%=read %> 회</td>
+</tr>
+<tr><th>글 제목</th><td colspan="3">[<%=ctgr %>] <%=title %></td></tr>
+<tr><th>글 내용</th><td colspan="3"><%=content %></td></tr>
+<tr><td colspan="4" align="center">
+	<input type="button" value="글수정" 
+	onclick="location.href='notice_form.jsp?kind=up&cpage=<%=cpage %>&idx=<%=idx %>';" />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="글삭제" />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="글목록" />
+</td></tr>
+</table>
+
+<%@ include file="../_inc/inc_foot.jsp" %>
