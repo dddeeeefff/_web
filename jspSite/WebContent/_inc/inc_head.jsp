@@ -47,5 +47,5 @@ MemberInfo login_info = (MemberInfo) session.getAttribute("login_info");
 </style>
 </head>
 <body>
-<a href="http://localhost:8089/jspSite/index.jsp">HOME</a>
+<a href="http://localhost:8086/jspSite/index.jsp">HOME</a>
 <br /><hr />

@@ -190,6 +190,7 @@ java.net.URL getResource(String path) : 지정한 경로를 URL 객체로 리턴
 1) redirect
  - response 객체의 sendRedirect(String url) 메소드를 이용하여 이동시키는 방법
  - 이전 페이지의 reques와 response 객체가 이동하는 페이지에서는 필요없는 경우 사용됨(일반적인 상황)
+ - 쿼리스트링에 한글이 있을 경우 깨질 위험이 있음(URLEncoder도 안됨)
 
 2) dispatch 방법
  - pageContext 객체의 forward(String url) 메소드를 이용하여 이동시키는 방법
