@@ -1,8 +1,3 @@
-select * from t_bbs_notice;
-
-select * from t_bbs_notice 
-where "where bn_title like '%" + keyword + "%' " + " or bn_content like '%" + keyword + "%' ";
-
 select bn_idx, bn_ctgr, bn_title, bn_read, bn_isview, if(curdate() = date(bn_date), 
 mid(bn_date, 12, 5), mid(bn_date, 3, 8)) wdate, bn_date
 from t_bbs_notice 
@@ -12,11 +7,11 @@ limit 0, 10;
 
 
 
-sql = "select bn_idx, bn_ctgr, bn_title, bn_read, bn_isview, " + 
-	" if(curdate() = date(bn_date), mid(bn_date, 12, 5), " + 
-	" mid(bn_date, 3, 8)) wdate, bn_date " + 
-	" from t_bbs_notice " + where + " order by bn_idx desc " + 
-	" limit " + start + ", " + psize;
+select bn_idx, bn_ctgr, bn_title, bn_read, bn_isview, 
+	 if(curdate() = date(bn_date), mid(bn_date, 12, 5),  
+	 mid(bn_date, 3, 8)) wdate, bn_date 
+	 from t_bbs_notice  where  
+     order by bn_idx desc limit start, psize;
 
 
 select * from t_bbs_free where bf_isDel = 'n'; 
@@ -28,3 +23,11 @@ bf_read, if(curdate() = date(bf_date), mid(bf_date, 12, 5),
 replace(mid(bf_date, 6, 5), '-', '.')) wdate, bf_date
 from t_bbs_free
 where bf_isdel = 'n';
+
+
+select * from t_bbs_free;
+select bf_idx, bf_writer, bf_header, bf_title, bf_reply,  bf_read, 
+if(curdate() = date(bf_date), mid(bf_date, 12, 5),  replace(mid(bf_date, 6, 5), '-', '.')) wdate, bf_date  
+from t_bbs_free  where bf_isdel = 'n'  order by bf_idx desc  limit 0, 10;
+
+select 1 from t_bbs_free where  bf_ismem = 'n' and bf_idx = 2;
