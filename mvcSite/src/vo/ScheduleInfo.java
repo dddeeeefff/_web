@@ -1,5 +1,6 @@
 package vo;
 
+// 하나의 일정 정보를 저장할 클래스
 public class ScheduleInfo {
 	private int si_idx;
 	private String mi_id, si_start, si_end, si_content, si_date;

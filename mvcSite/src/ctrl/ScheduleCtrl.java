@@ -24,16 +24,26 @@ public class ScheduleCtrl extends HttpServlet {
 		
 		switch(command) {
 		case "schedule.sch" :		// 일정관리 달력 요청
-			//action = new ScheduleAct(); break;
+			action = new ScheduleAct(); break;
 		case "schedule_form.sch" :	// 일정관리 일정 등록 및 수정 폼 요청
-			//action = new ScheduleFormAct(); break;
+			action = new ScheduleFormAct(); break;
 		case "schedule_proc.sch" :	// 일정 등록, 수정, 삭제 처리 요청
-			//action = new ScheduleProcAct(); break;
+			action = new ScheduleProcAct(); break;
 		}
 		try {
 			forward = action.execute(request, response);
 			
 		}catch(Exception e) { e.printStackTrace(); }
+		
+		if (forward != null) {
+			if (forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = 
+					request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+			}
+		}
 	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
