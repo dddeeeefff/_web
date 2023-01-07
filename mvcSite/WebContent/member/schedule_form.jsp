@@ -11,7 +11,13 @@ String kind = request.getParameter("kind");
 int idx = 0;
 String msg = "등록", sh = "", sn = "", content = "";
 if (kind.equals("up")) {
+	ScheduleInfo si = (ScheduleInfo)request.getAttribute("si");
+	// 수정시 일정에 대한 정보가 들어있는 ScheduleInfo형 인스턴스를 받아옴
 	msg = "수정";
+	idx = si.getSi_idx();
+	sh = si.getSi_start().substring(11, 13);
+	sn = si.getSi_start().substring(14, 16);
+	content = si.getSi_content();
 }
 
 int minYear = 1990, maxYear = ci.getcYear() + 10;
@@ -22,8 +28,6 @@ int minYear = 1990, maxYear = ci.getcYear() + 10;
 <form name="frm" action="schedule_proc.sch" method="post">
 <input type="hidden" name="idx" value="<%=idx %>" />
 <input type="hidden" name="kind" value="<%=kind %>" />
-<input type="hidden" name="si_date" id="si_date" value="" />
-<input type="hidden" name="si_time" id="si_time" value="" />
 <table width="500" cellpadding="5">
 <tr>
 <th width="15%">일시</th>

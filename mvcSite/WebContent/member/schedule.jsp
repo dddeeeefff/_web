@@ -75,8 +75,25 @@ if (prevMonth < 1){
 .txtRed { color:red; font-weight:bold; }
 .txtBlue { color:blue; font-weight:bold; }
 #txtToday { background:pink; }
+.scheduleBox {
+	width:400px; height:150px; background:#fbef84; padding:10px 5px;
+	overflow:auto; position:absolute; top:200px; left:150px; display:none;
+}
 </style>
 <script>
+function showSchedule(num) {
+	var obj = document.getElementById("box" + num);
+	obj.style.display="block";
+}
+function hideSchedule(num) {
+	var obj = document.getElementById("box" + num);
+	obj.style.display="none";
+}
+function callDel(idx) {
+	if (confirm("정말 삭제하시겠습니까?")) {
+		location.href = "schedule_proc.sch?kind=del&idx=" + idx + "&y=<%=sy %>&m=<%=sm %>";
+	}
+}
 </script>
 <div id="searchBox">
 	<h2>일정 관리 - <%=sy %>년 <%=sm %>월</h2>
@@ -113,7 +130,7 @@ if (sWeek != 1) {	// 1일이 월요일이 아닐 경우(1일의 시작위치가 
 	// 1일의 요일 만큼 빈 칸으로 채워 1일의 출력위치를 잡도록 함
 }
 
-String txtClass = "", txtId = "", args = "";
+String txtClass = "", txtId = "", args = "", schImg = "", closeImg = "";
 for (int i = 1, n = sWeek; i <= eDay; i++, n++) {
 // i : 날짜의 일(day)을 출력하기 위한 변수 / n : 일주일이 지날 때마다 다른 줄로 내리기 위한 변수
 	txtClass = "";	// 요일별 색상 스타일을 적용하기 위한 html 클래스용 변수
@@ -129,10 +146,44 @@ for (int i = 1, n = sWeek; i <= eDay; i++, n++) {
 		txtId = " id=\"txtToday\"";
 	// 현재 출력할 날짜가 오늘일 경우 배경색을 변경하는 html 아이디를 적용
 	
+	schImg = "";	closeImg = "";
+	if (scheduleList.size() > 0) {
+	// 검색 연월에 해당하는 일정이 있을 경우
+		String schDate = sy + "-" + (sm < 10 ? "0" + sm : sm) + 
+		"-" + (i < 10 ? "0" + i : i);	// 일정일자와 비교할 날짜 데이터
+		
+		out.println("<div class='scheduleBox' id='box" + i + "'>");
+		for (int j = 0; j < scheduleList.size(); j++) {
+			ScheduleInfo si = scheduleList.get(j);
+			if (schDate.equals(si.getSi_start().substring(0, 10))){
+			// 현재 출력하려는 날짜에 해당하는 일정이 있을 경우
+				schImg = "<a href=\"javascript:showSchedule(" + i + ");\">" +
+				"<img src='img/schedule_icon.png' width='20' " + 
+				"style='margin-left:10px;' /></a>";
+				closeImg = "<a href=\"javascript:hideSchedule(" + i + ");\">" +
+				"<img src='img/close.png' width='20' " + 
+				"style='margin-left:10px;' /></a>";
+				
+				args = "?kind=up&y=" + sy + "&m=" + sm + "&d=" + i;
+%>
+	<%=schDate %> 일정<%=closeImg %><br />
+	일시 : <%=si.getSi_start().substring(11, 16) %>&nbsp;&nbsp;&nbsp;
+	<input type="button" value="수정" 
+	onclick="location.href='schedule_form.sch<%=args %>&idx=<%=si.getSi_idx() %>';" />
+	<input type="button" value="삭제" onclick="callDel(<%=si.getSi_idx() %>);" />
+	<br /><%=si.getSi_content().replace("\r\n", "<br />") %>
+	<br /><br />등록일 : <%=si.getSi_date() %><hr />
+<%
+			}
+
+		}
+		out.println("</div>");
+	}
+	
 	args = "?kind=in&y=" + sy + "&m=" + sm + "&d=" + i;
 	out.println("<td valign='top'" + txtId + ">" + 
-	"<a href='schedule_form.sch" + args + "'" + txtClass + ">" + i + "</a>" + 
-	"</td>");
+	"<a href='schedule_form.sch" + args + "'" + txtClass + 
+	">" + i + "</a>" + schImg + "</td>");
 	
 	if (n % 7 == 0) {
 		out.println("</tr>");

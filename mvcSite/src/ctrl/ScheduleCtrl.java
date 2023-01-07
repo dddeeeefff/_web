@@ -31,8 +31,7 @@ public class ScheduleCtrl extends HttpServlet {
 			action = new ScheduleProcAct(); break;
 		}
 		try {
-			forward = action.execute(request, response);
-			
+			forward = action.execute(request, response);	
 		}catch(Exception e) { e.printStackTrace(); }
 		
 		if (forward != null) {
