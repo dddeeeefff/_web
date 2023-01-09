@@ -13,7 +13,7 @@ public class MemberFormIn extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginInfo") != null) {
-			response.setContentType("type/html; charSet=utf-8");
+			response.setContentType("text/html; charSet=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");

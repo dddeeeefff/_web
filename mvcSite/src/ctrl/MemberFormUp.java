@@ -5,19 +5,19 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-@WebServlet("/login_form")
-public class LoginForm extends HttpServlet {
+
+@WebServlet("/member_form_up")
+public class MemberFormUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public LoginForm() { super(); }
+ 
+    public MemberFormUp() {  super(); }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession();
-		// JSP가 아니므로 세션을 사용하려면 직접 HttpSession 클래스의 인스턴스를 생성해야 함
-		if (session.getAttribute("loginInfo") != null) {
-		// 현재 로그인이 되어 있는 상태라면
+		if (session.getAttribute("loginInfo") == null) {
+		// 현재 로그인이 되어 있지 않은 상태라면
 			response.setContentType("text/html; charSet=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
@@ -25,15 +25,14 @@ public class LoginForm extends HttpServlet {
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
+			
 		}
-		
+		// sendredirect - url 바뀜 - proc일때 주로 사용
+		// 디스패쳐 - 바뀌지 않음 - proc이 아닐때 사용
 		RequestDispatcher dispatcher =
-			request.getRequestDispatcher("login_form.jsp");
+			request.getRequestDispatcher("/member/member_form_up.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
 
 }
