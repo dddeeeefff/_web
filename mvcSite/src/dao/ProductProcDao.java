@@ -29,10 +29,10 @@ public class ProductProcDao {
 		int rcnt = 0;
 		
 		try {			
-			String sql = "select count(*) from t_product_info a " + where;
+			String sql = "select count(*) from t_product_info a " + 
+			" where a.pi_isview = 'y' " + where;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			
 			if (rs.next())	rcnt = rs.getInt(1);
 			
 		} catch(Exception e) {
@@ -55,6 +55,7 @@ public class ProductProcDao {
 			String sql = "select a.pi_id, a.pi_img1, a.pi_name, a.pi_price, a.pi_dc, " +
 						" a.pi_special, a.pi_score, a.pi_review, sum(b.ps_stock) stock " +
 						" from t_product_info a, t_product_stock b " + 
+						" where a.pi_id = b.pi_id and a.pi_isview = 'y' " + 
 						where + " group by a.pi_id " + orderBy + 
 						" limit " + ((cpage - 1) * psize) + ", " + psize;
 			stmt = conn.createStatement();
@@ -82,5 +83,62 @@ public class ProductProcDao {
 		}
 		
 		return productList;
+	}
+	
+	public ArrayList<ProductBrand> getBrandList() {
+	// 브랜드 목록을 리턴하는 메소드
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductBrand> brandList = new ArrayList<ProductBrand>();
+		ProductBrand pb = null;
+		
+		try {			
+			String sql = "select * from t_product_brand";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				pb = new ProductBrand();
+				pb.setPb_id(rs.getString("pb_id"));
+				pb.setPb_name(rs.getString("pb_name"));
+				brandList.add(pb);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("ProductProcDao 클래스의 getBrandList() 메소드 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);	close(stmt);
+		}
+		return brandList;
+	}
+	
+	public ArrayList<ProductCtgrSmall> getCtgrSmallList(String pcb) {
+	// 소분류 목록을 리턴하는 메소드
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductCtgrSmall> smallList = new ArrayList<ProductCtgrSmall>();
+		ProductCtgrSmall pcs = null;
+		
+		try {			
+			String sql = "select * from t_product_ctgr_small where pcb_id = '" + pcb + "' ";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				pcs = new ProductCtgrSmall();
+				pcs.setPcs_id(rs.getString("pcs_id"));
+				pcs.setPcb_id(rs.getString("pcb_id"));
+				pcs.setPcs_name(rs.getString("pcs_name"));
+				smallList.add(pcs);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("ProductProcDao 클래스의 getCtgrSmallList() 메소드 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);	close(stmt);
+		}
+		return smallList;
 	}
 }

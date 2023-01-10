@@ -116,8 +116,8 @@ int				getIntHeader(String headerName)
 리턴타입			메소드명 및 설명
 Cookie[]	getCookies() : 헤더에 포함된 쿠키들을 javax.servlet.http.Cookie 형 인스턴스 배열로 리턴
 String		getServerName() : 서버의 도메인명을 리턴
-int			getServerPort() : 서버의 포트번호를 리턴
-StringBuffer getRequestURL() : 요청 URL을 StringBuffer형 인스턴스로 리턴
+int		getServerPort() : 서버의 포트번호를 리턴
+StringBuffer	getRequestURL() : 요청 URL을 StringBuffer형 인스턴스로 리턴
 String		getRequestURI() : 요청 URI를 String형 인스턴스로 리턴
 String		getQueryString() : 요청에 사용된 쿼리스트링을 리턴
 String		getRemoteHost() : 클라이언트의 호스트 이름을 리턴

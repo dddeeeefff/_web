@@ -30,4 +30,28 @@ public class ProductListSvc {
 		
 		return productList;
 	}
+	
+	public ArrayList<ProductBrand> getBrandList() {
+		ArrayList<ProductBrand> brandList = new ArrayList<ProductBrand>();
+		Connection conn = getConnection();
+		ProductProcDao productProcDao = ProductProcDao.getInstance();
+		productProcDao.setConnection(conn);
+		
+		brandList = productProcDao.getBrandList();
+		close(conn);
+		
+		return brandList;
+	}
+	
+	public ArrayList<ProductCtgrSmall> getCtgrSmallList(String pcb) {
+		ArrayList<ProductCtgrSmall> smallList = new ArrayList<ProductCtgrSmall>();
+		Connection conn = getConnection();
+		ProductProcDao productProcDao = ProductProcDao.getInstance();
+		productProcDao.setConnection(conn);
+		
+		smallList = productProcDao.getCtgrSmallList(pcb);
+		close(conn);
+		
+		return smallList;
+	}
 }

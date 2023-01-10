@@ -22,7 +22,7 @@ public class ProductListCtrl extends HttpServlet {
 			cpage = Integer.parseInt(request.getParameter("cpage"));
 		
 		// 검색 조건 where절 생성
-		String where = " where a.pi_id = b.pi_id and a.pi_isview = 'y' ";
+		String where = "";
 		String pcb = request.getParameter("pcb");	// 대분류
 		String pcs = request.getParameter("pcs");	// 소분류
 		String sch = request.getParameter("sch");	// 검색조건(가격대, 상품명, 브랜드)
@@ -92,7 +92,14 @@ public class ProductListCtrl extends HttpServlet {
 		productListSvc.getProductList(cpage, psize, where, orderBy);
 		// 검색된 상품들 중 현재 페이지에서 보여줄 상품 목록을 받아옴
 		
-//		ArrayList<ProductBrand> brandList = 
+		ArrayList<ProductBrand> brandList = productListSvc.getBrandList();
+		
+		ArrayList<ProductCtgrSmall> smallList = new ArrayList<ProductCtgrSmall>();
+		if (pcb != null && !pcb.equals("")) {	// 검색 조건 중 대분류가 있으면
+			smallList = productListSvc.getCtgrSmallList(pcb);
+			// 검색조건의 대분류에 속하는 소분류 목록을 받아옴
+			
+		}
 		
 		pcnt = rcnt / psize;
 		if (rcnt % psize > 0)	pcnt++;	// 전체 페이지 수(마지막 페이지 번호)
@@ -109,6 +116,8 @@ public class ProductListCtrl extends HttpServlet {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("productList", productList);
+		request.setAttribute("brandList", brandList);
+		request.setAttribute("smallList", smallList);
 		// dispatcher 방식으로 view를 보여주므로 request 객체에 필요한 정보를 담아 넘겨줌
 		
 		RequestDispatcher dispatcher =

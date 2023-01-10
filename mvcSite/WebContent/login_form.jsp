@@ -10,7 +10,7 @@ if (url == null)	url = "index.jsp";
 <form name="frmLogin" action="login" method="post">
 <input type="hidden" name="url" value="<%=url %>" />
 아이디 : <input type="text" name="uid" value="test1" /><br />
-비밀번호 : <input type="password" name="pwd" value="1111" /><br />
+비밀번호 : <input type="password" name="pwd" value="1234" /><br />
 <input type="submit" value="로그인" />
 </form>
 </body>
