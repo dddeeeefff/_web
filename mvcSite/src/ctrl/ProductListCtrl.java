@@ -77,12 +77,14 @@ public class ProductListCtrl extends HttpServlet {
 		case "g" : // 조회수 높은순
 			orderBy = " order by a.pi_read desc";	break;
 		}
-		
 		String v = request.getParameter("v");	// 보기 방식
+		if (v == null)	v = "g";
+		// 목록형과 갤러리형 모두 페이지 크기는 12로 동일함
+/*		
 		if (v != null && v.equals("l"))	psize = 10;
 		// 보기 방식이 목록형일 경우 페이지의 크기를 10으로 변경
 		else	v = "g";
-		
+*/	
 		ProductListSvc productListSvc = new ProductListSvc();
 		
 		rcnt = productListSvc.getProductCount(where);
