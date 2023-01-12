@@ -6,11 +6,14 @@ public class ProductInfo {
 // 하나의 상품 정보를 저장할 클래스
 	private String pi_id, pcs_id, pb_id, pi_name, pi_com, pi_isview, pi_date;
 	private String pi_img1, pi_img2, pi_img3, pi_desc, pi_special, pi_last;
+	private String pcb_name, pcs_name, pb_name;
+	// 상품 상세보기 화면에서 보여줄 분류와 브랜드명을 저장할 변수들
 	private float pi_score;
 	private int pi_price, pi_cost, pi_dc, pi_read;
 	private int pi_review, pi_sale, ai_idx, pi_ai_idx, stock;
 	private ArrayList<ProductStock> stockList;
 	// 현 상품에 속하는 옵션 및 재고량들을 저장할 ArrayList
+	
 	public String getPi_id() {
 		return pi_id;
 	}
@@ -89,11 +92,23 @@ public class ProductInfo {
 	public void setPi_last(String pi_last) {
 		this.pi_last = pi_last;
 	}
-	public int getStock() {
-		return stock;
+	public String getPcb_name() {
+		return pcb_name;
 	}
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setPcb_name(String pcb_name) {
+		this.pcb_name = pcb_name;
+	}
+	public String getPcs_name() {
+		return pcs_name;
+	}
+	public void setPcs_name(String pcs_name) {
+		this.pcs_name = pcs_name;
+	}
+	public String getPb_name() {
+		return pb_name;
+	}
+	public void setPb_name(String pb_name) {
+		this.pb_name = pb_name;
 	}
 	public float getPi_score() {
 		return pi_score;
@@ -149,12 +164,20 @@ public class ProductInfo {
 	public void setPi_ai_idx(int pi_ai_idx) {
 		this.pi_ai_idx = pi_ai_idx;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	public ArrayList<ProductStock> getStockList() {
 		return stockList;
 	}
 	public void setStockList(ArrayList<ProductStock> stockList) {
 		this.stockList = stockList;
 	}
-
+	
+	
+	
 
 }

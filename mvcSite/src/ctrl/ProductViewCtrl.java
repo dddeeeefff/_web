@@ -28,7 +28,7 @@ public class ProductViewCtrl extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('상품정보가 없습니다.')");
-			out.println("history.back()");
+			out.println("history.back();");
 			out.println("</script>");
 			out.close();
 		}
