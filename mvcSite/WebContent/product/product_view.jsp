@@ -50,7 +50,7 @@ function buy(chk) {
 		$.ajax({
 			type : "POST",
 			url : "/mvcSite/cart_proc_in",
-			data : {"piid : "<%=pi.getPi_id() %>", "psidx" : size, "cnt" : cnt},
+			data : {"piid" : "<%=pi.getPi_id() %>", "psidx" : size, "cnt" : cnt},
 			success : function(chkRs) {
 				if (chkRs == 0) {	// 장바구니 담기에 실패했을 경우
 					alert("장바구니 담기에 실패했습니다.\n다시 시도해 보세요.");

@@ -34,10 +34,12 @@ function onlyNum(obj) {
 <a href="/mvcSite/index.jsp">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <% if (isLogin) { %>
 <a href="/mvcSite/logout.jsp">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="member_form_up">정보수정</a>
+<a href="member_form_up">정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="cart_view">장바구니</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <% } else { %>
 <a href="login_form">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="member_form_in">회원가입</a>
+<a href="member_form_in">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="login_form?url=cart_view">장바구니</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <% } %>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="product_list?pcb=AA">구두</a>&nbsp;&nbsp;&nbsp;

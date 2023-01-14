@@ -20,5 +20,17 @@ public class CartProcInCtrl extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
+		
+		OrderCart oc = new OrderCart();
+		oc.setMi_id(miid);		oc.setPi_id(piid);
+		oc.setPs_idx(psidx);	oc.setOc_cnt(cnt);
+		
+		CartProcInSvc cartProcInSvc = new CartProcInSvc();
+		int result = cartProcInSvc.cartInsert(oc);
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(result);
+		// 장바구니 담기 기능을 호출했던 ajax를 사용한 곳으로 결과값을 리턴
 	}
 }
