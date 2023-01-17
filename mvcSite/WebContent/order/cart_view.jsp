@@ -29,6 +29,35 @@ function chkAll(all) {
 		});
 	}
  }
+ 
+function cartUp(ocidx, opt, cnt){
+// 장바구니 내 특정 상품의 옵션 및 수량을 변경하는 함수
+// cnt가 0이면 옵션 변경이고, opt가 0이면 수량 변경을 의미	
+
+	$.ajax({
+		type : "POST",
+		url : "/mvcSite/cart_proc_Up",
+		data : {"ocidx" : ocidx, "opt" : opt, "cnt" : cnt}, 
+		success : function(chkRs) {
+			if (chkRs == 0) {
+				alert("제품 변경에 실패했습니다.\n다시 시도하세요.");
+			}
+			location.reload();
+		}
+	});
+}
+
+function setCnt(chk, ocidx) {
+	var frm = document.frmCart;
+	var cnt = parseInt(eval("frm.cnt" + ocidx + ".value"));
+	
+	alert((cnt + 1) + ":::" + (cnt - 1));
+	if (chk == "+" && cnt < 99) {
+		// cartUp(ocidx, 0, cnt + 1)
+	} else if (chk == "-" && cnt > 1) {
+		// cartUp(ocidx, 0, cnt - 1)
+	}
+}
 </script>
 <h2>장바구니</h2>
 <form name="frmCart" action="order_form" method="post">
@@ -59,7 +88,7 @@ if (cartList.size() > 0) {	// 장바구니에 담긴 상품이 있을 경우
 	<a href="product_view?piid=<%=oc.getPi_id() %>"><%=oc.getPi_name() %></a>
 </td>
 <td width="20%">
-	<select name="size">
+	<select name="size" onchange="cartUp(<%=ocidx %>, this.value, 0);">
 <%
 		ArrayList<ProductStock> stockList = oc.getStockList();
 		for (int j = 0; j < stockList.size(); j++) {
@@ -81,10 +110,10 @@ if (cartList.size() > 0) {	// 장바구니에 담긴 상품이 있을 경우
 	</select>
 </td>
 <td width="15%">
-		<input type="button" value="-" onclick="" />
-		<input type="text" name="cnt" id="cnt" style="width:20px; text-align:right;"
+		<input type="button" value="-" onclick="setCnt(this.value, <%=ocidx %>);" />
+		<input type="text" name="cnt<%=ocidx %>" id="cnt" style="width:20px; text-align:right;"
 		value="<%=oc.getOc_cnt() %>" readonly="readonly" />
-		<input type="button" value="+" onclick="" />
+		<input type="button" value="+" onclick="setCnt(this.value, <%=ocidx %>);" />
 </td>
 <td width="15%"><%=price %>원</td>
 <td width="*">

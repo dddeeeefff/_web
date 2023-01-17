@@ -74,6 +74,60 @@ public class CartProcDao {
 		return result;
 	}
 	
+	public int cartUpdate(OrderCart oc) {
+	// 지정한 상품의 옵션이나 수량을 장바구니에서 변경하는 메소드	
+		Statement stmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			stmt = conn.createStatement();
+			String sql = "update t_order_cart set ";
+			String where = " where mi_id= '" + oc.getMi_id() + "' ";
+			if (oc.getOc_cnt() == 0) {	// 옵션 변경일 경우
+				String sql2 = "select oc_idx, oc_cnt from t_order_cart " + 
+					where + " and ps_idx = " + oc.getPs_idx();
+				// 변경하려는 옵션과 동일한 상품이 장바구니에 이미 존재하는지 여부를 검사할 쿼리
+				rs = stmt.executeQuery(sql2);
+				if (rs.next()) {
+				// 변경하려는 옵션과 동일한 상품이 장바구니에 있을 경우
+				// 기존 상품의 수량을 추가 변경하는 상품에 추가한 후 삭제
+					int idx = rs.getInt("oc_idx");
+					// stmt로 다른 쿼리를 실행하기 전에 사용할 값을 미리 rs에서 받아놓음
+					sql += " ps_idx = " + oc.getPs_idx() + 
+					", oc_cnt = oc_cnt + " + rs.getInt("oc_cnt") + 
+					where + " and oc_idx = " + oc.getOc_idx();
+					// 옵션 변경 및 동일한 옵션의 기존 상품 수량을 현 상품에 추가하는 쿼리
+					result = stmt.executeUpdate(sql);
+					
+					sql = "delete from t_order_cart "  + 
+					where + " and oc_idx = " + idx;
+					// 동일한 옵션의 기존 상품을 장바구니에서 삭제하는 쿼리
+					
+				} else {
+				// 변경하려는 옵션과 동일한 상품이 장바구니에 없을 경우
+				// 해당 상품의 옵션만 변경시킴
+					sql += " ps_idx = " + oc.getPs_idx() + 
+					where + " and oc_idx = " + oc.getOc_idx();
+				}
+				close(rs);
+				
+			} else {	// 수량 변경일 경우
+				// 각각의 버튼을 누르면 oc_cnt가 증감
+				
+			}		
+			result = stmt.executeUpdate(sql);
+					
+		} catch(Exception e) {
+			System.out.println("CartProcDao 클래스의 cartUpdate() 메소드 오류");
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
 	
 	public ArrayList<OrderCart> getCartList(String miid) {
 	// 장바구니에서 보여줄 정보들을 ArrayList로 리턴하는 메소드
