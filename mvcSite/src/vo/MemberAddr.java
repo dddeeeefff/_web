@@ -3,7 +3,7 @@ package vo;
 // 하나의 회원 주소 정보를 저장할 클래스
 public class MemberAddr {
 	private int ma_idx;
-	private String mi_id, ma_name, ma_phone, ma_zip;
+	private String mi_id, ma_name, ma_rname, ma_phone, ma_zip;
 	private String ma_addr1, ma_addr2, ma_basic, ma_date;
 	public int getMa_idx() {
 		return ma_idx;
@@ -19,6 +19,12 @@ public class MemberAddr {
 	}
 	public void setMa_name(String ma_name) {
 		this.ma_name = ma_name;
+	}
+	public String getMa_rname() {
+		return ma_rname;
+	}
+	public void setMa_rname(String ma_rname) {
+		this.ma_rname = ma_rname;
 	}
 	public String getMa_phone() {
 		return ma_phone;

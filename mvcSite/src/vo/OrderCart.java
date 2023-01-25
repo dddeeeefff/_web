@@ -6,7 +6,7 @@ public class OrderCart {
 // 장바구니에 담긴 하나의 상품 정보를 저장할 클래스
 	private int oc_idx, ps_idx, oc_cnt;
 	private String mi_id, pi_id, oc_date;
-	private int pi_price, pi_dc, ps_stock;
+	private int pi_price, pi_dc, ps_stock, ps_size;
 	private String pi_name, pi_img1;
 	private ArrayList<ProductStock> stockList;
 	// 현 상품에 속하는 옵션 및 재고량들을 저장할 ArrayList
@@ -64,6 +64,13 @@ public class OrderCart {
 	}
 	public void setPs_stock(int ps_stock) {
 		this.ps_stock = ps_stock;
+	}
+	
+	public int getPs_size() {
+		return ps_size;
+	}
+	public void setPs_size(int ps_size) {
+		this.ps_size = ps_size;
 	}
 	public String getPi_name() {
 		return pi_name;

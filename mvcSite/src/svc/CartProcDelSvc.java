@@ -14,7 +14,8 @@ public class CartProcDelSvc {
 		cartProcDao.setConnection(conn);
 		
 		result = cartProcDao.cartDelete(where);
-		if (result == 1)	commit(conn);
+		if (result >= 1)	commit(conn);
+		// 여러 상품을 삭제할 경우 적용된 레코드가 1이 넘을 수 있으므로 1이상으로 조건을 줌
 		else				rollback(conn);
 		close(conn);
 		

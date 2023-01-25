@@ -84,6 +84,7 @@ public class CartProcDao {
 			stmt = conn.createStatement();
 			String sql = "update t_order_cart set ";
 			String where = " where mi_id= '" + oc.getMi_id() + "' ";
+			
 			if (oc.getOc_cnt() == 0) {	// 옵션 변경일 경우
 				String sql2 = "select oc_idx, oc_cnt from t_order_cart " + 
 					where + " and ps_idx = " + oc.getPs_idx();
@@ -113,8 +114,8 @@ public class CartProcDao {
 				close(rs);
 				
 			} else {	// 수량 변경일 경우
-				// 각각의 버튼을 누르면 oc_cnt가 증감
-				
+				sql += " oc_cnt = " + oc.getOc_cnt() + 
+				where + " and oc_idx = " + oc.getOc_idx();
 			}		
 			result = stmt.executeUpdate(sql);
 					

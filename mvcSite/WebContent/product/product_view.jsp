@@ -105,7 +105,7 @@ function buy(chk) {
 	<!-- 상품 정보 관련 영역 -->
 	<form name="frm" method="post">
 	<input type="hidden" name="kind" value="d" />
-	<input type="hidden" name="piid" value="<%=pi.getPb_id() %>" />
+	<input type="hidden" name="piid" value="<%=pi.getPi_id() %>" />
 	<table width="100%" cellpadding="5">
 	<tr><td colspan="2">
 		<a href="product_list?pcb=<%=pi.getPcs_id().substring(0,2) %>">
