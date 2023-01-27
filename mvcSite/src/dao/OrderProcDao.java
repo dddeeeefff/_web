@@ -242,5 +242,53 @@ public class OrderProcDao {
 	}
 	public OrderInfo getOrderInfo(String miid, String oiid) {
 	// 받아온 회원아이디와 주문번호에 해당하는 정보들을 OrderInfo형 인스턴스에 담아 리턴하는 메소드
+		Statement stmt = null;
+		ResultSet rs = null;
+		OrderInfo oi = null;
+		ArrayList<OrderDetail> detailList = new ArrayList<OrderDetail>();
+		// 주문의 상품들 정보
+		
+		try {
+			String sql = "select a.oi_name, a.oi_phone, a.oi_zip, a.oi_addr1, a.oi_addr2, " + 
+			" a.oi_payment, a.oi_pay, b.od_img, b.od_name, b.od_size, b.od_cnt, " +
+			" b.od_price, b.pi_id, c.pi_isview from t_order_info a, t_order_detail b, " + 
+			" t_product_info c where a.oi_id = b.oi_id and b.pi_id = c.pi_id " +
+			" and a.mi_id = '" + miid + "' and a.oi_id = '" + oiid + "' " + 
+			" order by c.pi_id, b.od_size ";
+			System.out.println(sql);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if (rs.next()) {	
+				oi = new OrderInfo();
+				oi.setOi_id(oiid);
+				oi.setOi_name(rs.getString("oi_name"));
+				oi.setOi_phone(rs.getString("oi_phone"));
+				oi.setOi_zip(rs.getString("oi_zip"));
+				oi.setOi_addr1(rs.getString("oi_addr1"));
+				oi.setOi_addr2(rs.getString("oi_addr2"));
+				oi.setOi_payment(rs.getString("oi_payment"));
+				oi.setOi_pay(rs.getInt("oi_pay"));
+				do {
+					OrderDetail od = new OrderDetail();
+					od.setOd_img(rs.getString("od_img"));
+					od.setOd_name(rs.getString("od_name"));
+					od.setOd_size(rs.getInt("od_size"));
+					od.setOd_cnt(rs.getInt("od_cnt"));
+					od.setOd_price(rs.getInt("od_price"));
+					od.setPi_id(rs.getString("pi_id"));
+					od.setPi_isview(rs.getString("pi_isview"));
+					detailList.add(od);
+				}while (rs.next());
+				oi.setDetailList(detailList);	
+			}
+		} catch(Exception e) {
+			System.out.println("OrderProcDao 클래스의 getOrderInfo() 메소드 오류");
+			e.printStackTrace();
+		} finally {
+			close(rs);	close(stmt);
+		}
+		
+		return oi;
 	}
 }

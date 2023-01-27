@@ -3,7 +3,7 @@ package vo;
 public class OrderDetail {
 // 주문에서 하나의 상품 정보를 저장할 클래스
 	private int od_idx, ps_idx, od_cnt, od_price, od_size;
-	private String oi_id, pi_id, od_name, od_img;
+	private String oi_id, pi_id, od_name, od_img, pi_isview;
 	
 	public int getOd_idx() {
 		return od_idx;
@@ -58,6 +58,12 @@ public class OrderDetail {
 	}
 	public void setOd_img(String od_img) {
 		this.od_img = od_img;
+	}
+	public String getPi_isview() {
+		return pi_isview;
+	}
+	public void setPi_isview(String pi_isview) {
+		this.pi_isview = pi_isview;
 	}
 	
 }

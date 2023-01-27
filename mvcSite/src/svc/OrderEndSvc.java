@@ -13,7 +13,7 @@ public class OrderEndSvc {
 		OrderProcDao orderProcDao = OrderProcDao.getInstance();
 		orderProcDao.setConnection(conn);
 				
-		orderInfo = OrderProcDao.getOrderInfo(miid, oiid);
+		orderInfo = orderProcDao.getOrderInfo(miid, oiid);
 		close(conn);
 		
 		return orderInfo;
