@@ -56,7 +56,6 @@ public class FreeProcDao {
 			" if(curdate() = date(bf_date), right(bf_date, 8), replace(mid(bf_date, 3, 8), '-', '.')) wdate " + 
 			" from t_bbs_free " + where + " order by bf_idx desc " +
 			" limit " + ((cpage - 1) * psize) + ", " + psize;
-			System.out.println(sql);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {

@@ -1,0 +1,77 @@
+파일 명세서
+/bbs/ 자유게시판 : 목록(페이징, 검색), 입력, 수정, 삭제, 보기, 댓글 목록, 댓글 추가, 댓글 삭제
+ : 정보 저장 클래스 : BbsFree, BbsFreeReply
+ : 목록(free_list)
+	C : FreeListCtrl	/ M : FreeListSvc, FreeProcDao		/ V : free_list.jsp
+ : 보기(free_view)
+	C : FreeViewCtrl	/ M : FreeViewSvc, FreeProcDao		/ V : free_view.jsp
+
+ : 입력폼(free_form_in)
+	C : FreeFormInCtrl	/ M : 없음							/ V : free_form_in.jsp
+ : 입력처리(free_proc_in)
+	C : FreeProcInCtrl	/ M : FreeProcInSvc, FreeProcDao	/ V : free_view 호출
+
+ : 수정폼(free_form_up)
+	C : FreeFormUpCtrl	/ M : FreeFormUpSvc, FreeProcDao	/ V : free_form_up.jsp
+ : 수정처리(free_proc_up)
+	C : FreeProcUpCtrl	/ M : FreeProcUpSvc, FreeProcDao	/ V : free_view 호출
+
+ : 비밀번호폼(free_form_pw) : 해당 게시글이 비회원 글인지 여부를 검사 후 비밀번호 폼으로 이동
+	C : FreeFormPwCtrl	/ M : FreeFormPwSvc, FreeProcDao	/ V : free_form_pw.jsp
+
+ : 삭제처리(free_proc_del)
+	C : FreeProcDelCtrl	/ M : FreeProcDelSvc, FreeProcDao/ V : free_list 호출
+
+ : 댓글목록(free_view - 게시글 보기의 컨트롤러를 이용)
+	C : FreeViewCtrl	/ M : FreeReplyListSvc, FreeReplyProcDao	/ V : free_view.jsp
+
+ : 댓글 등록 처리(free_reply_proc_in)
+ 	C : FreeReplyProcInCtrl	/ M : FreeReplyProcInSvc, FreeReplyProcDao
+
+ : 댓글 비밀번호 폼(free_reply_form_pw) : 해당 댓글이 비회원 글일경우 이동 
+	C : FreeReplyFormPwCtrl / V : free_reply_form_pw.jsp
+
+ : 댓글 삭제 처리(free_reply_proc_del) : 해당 댓글이 회원글인지 비회원글인지에 따라 각각을 검사 후 삭제
+ 	C : FreeReplyProcDelCtrl	/ M : FreeReplyProcDelSvc, FreeReplyProcDao
+
+ : 댓글 좋아요 / 싫어요(free_replt_proc_gnb) :  좋아요, 싫어요 처리 후 댓글 목록으로 이동
+ 	C : FreeReplyProcGnbCtrl	/ M : FreeReplyProcGnbSvc, FreeReplyProcDao
+
+
+
+/product/상품목록화면 및 상품상세화면
+ : 정보저장 클래스 : ProductInfo, PdtCtgrBig, PdtCtgrSmall, PdtBrand, PdtStock
+ : 상품목록(product_list) : 사용자가 입력 또는 선택한 조건들로 검색 및 정렬
+	C : ProductListCtrl / M : ProductListSvc, ProductDao / V : product_list.jsp
+	검색조건 : 대분류(pcb), 소분류(pcs), 브랜드(pb), sch : 가격(p) / 상품명(n)
+	정렬기준(o) : 등록역순(a:기본), 인기순(b:판매량), 할인율(c:desc), 가격(d:asc, e:desc), 평점순(f:desc), 리뷰수(g:desc), 조회수(h:desc)
+	보기방식(v) : 갤러리(g:기본), 목록형(l)
+
+ : 상품상세(product_view) : 옵션 및 수량 선택, 장바구니와 바로구매로 링크
+	C : ProductViewCtrl / M : ProductViewSvc, ProductDao / V : product_view.jsp
+
+
+/order/장바구니처리(in, up, del), 장바구니화면, 결제화면, 구매처리, 구매확인화면
+ : 정보저장 클래스 : OrderCart, OrderInfo, OrderDetail, MemberAddr
+ : 장바구니처리(in : cart_proc_in) : 사용자가 선택한 상품을 장바구니에 입력
+	C : CartProcInCtrl	/ M : CartProcInSvc, CartDao	/ V : cart_view 호출(장바구니로 이동시)
+ : 장바구니처리(up : cart_proc_up) : 사용자가 변경한 상품의 옵션과 수량을 장바구니에 적용
+	C : CartProcUpCtrl	/ M : CartProcUpSvc, CartDao	/ V : ajax
+ : 장바구니처리(del : cart_proc_del) : 사용자가 선택한 상품을 장바구니에서 삭제(한개 또는 여러 개 삭제)
+	C : CartProcDelCtrl	/ M : CartProcDelSvc, CartDao	/ V : ajax
+ : 장바구니화면(cart_view)
+	C : CartViewCtrl	/ M : CartViewSvc, CartDao		/ V : cart_view.jsp
+
+ : 결제화면(order_form) : 구매하려는 상품들을 보여주고, 주소록에 있는 주소들도 보여주며 결제방식을 선택할 수 있는 폼 화면
+	C : OrderFormCtrl	/ M : OrderFormSvc, OrderDao	/ V : order_form.jsp
+ : 구매처리(order_proc_in) : 구매 처리
+	C : OrderProcInCtrl	/ M : OrderProcInSvc, OrderDao	/ V : order_end 호출
+ : 구매확인(order_end) : 처리가 끝난 구매의 확인 화면
+	C : OrderEndCtrl	/ M : OrderEndSvc, OrderDao		/ V : order_end.jsp
+
+
+
+
+
+
+

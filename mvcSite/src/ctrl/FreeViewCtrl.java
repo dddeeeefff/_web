@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
+import java.util.*;
 import svc.*;
 import vo.*;
 
@@ -22,6 +23,11 @@ public class FreeViewCtrl extends HttpServlet {
 		BbsFree bf = freeViewSvc.getFreeInfo(bfidx);
 		// 사용자가 선택한 게시글의 내용들을 BbsFree형 인스턴스로 받아옴
 		
+		FreeReplyListSvc freeReplyListSvc = new FreeReplyListSvc();
+		ArrayList<BbsFreeReply> replyList = 
+				freeReplyListSvc.getReplyList(bfidx);
+		// 사용자가 선택한 게시글의 댓글들을 목록으로 받아옴
+		
 		if (bf == null) {	// 보여줄 게시글이 있으면
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -29,8 +35,11 @@ public class FreeViewCtrl extends HttpServlet {
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");
 			out.println("history.back()");
 			out.println("</script>");
+			out.close();
 		} else {	// 보여줄 게시글이 있으면
 			request.setAttribute("bf", bf);
+			request.setAttribute("replyList", replyList);
+			
 			RequestDispatcher dispatcher =
 					request.getRequestDispatcher("/bbs/free_view.jsp");
 			dispatcher.forward(request, response);
