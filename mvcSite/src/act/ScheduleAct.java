@@ -9,14 +9,14 @@ import svc.*;
 import vo.*;
 
 public class ScheduleAct implements Action {
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		ArrayList<ScheduleInfo> scheduleList = new ArrayList<ScheduleInfo>();
 		// 해당 연월에 저장되어 있는 일정들을 ScheduleInfo형 인스턴스로 저장할 ArrayList 생성
 		
-		// 오늘 날짜(연월일)와 달력 시작 날짜(연월일)를 저장할 변수들 선언
+		// 오늘 날짜(연월일)와 달력 시작 날짜(연월일)를 저장할 변수를 선언
 		int cYear, cMonth, cDay, sYear, sMonth, sDay;
-		LocalDate today = LocalDate.now(); // 오늘날짜를 가진 인스턴스 생성
+		LocalDate today = LocalDate.now();	// 오늘 날짜를 가진 인스턴스 생성
 		cYear = today.getYear();
 		cMonth = today.getMonthValue();
 		cDay = today.getDayOfMonth();
@@ -41,7 +41,7 @@ public class ScheduleAct implements Action {
 		
 		request.setAttribute("ci", ci);
 		request.setAttribute("scheduleList", scheduleList);
-		// 달력 출력용 정보 인스턴스와 일정 목록 인스턴스를 request 객체에 저장
+		// 달력 출력용 정보 인스턴스와 일정 목록 인스턴스를 request객체에 저장
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);	// 디스패치 방식으로 이동

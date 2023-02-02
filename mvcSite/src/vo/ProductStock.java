@@ -4,6 +4,7 @@ public class ProductStock {
 // 특정 상품의 옵션(사이즈)별 재고량을 저장할 클래스
 	private int ps_idx, ps_size, ps_stock, ps_sale;
 	private String pi_id, ps_isview;
+	
 	public int getPs_idx() {
 		return ps_idx;
 	}
@@ -40,5 +41,4 @@ public class ProductStock {
 	public void setPs_isview(String ps_isview) {
 		this.ps_isview = ps_isview;
 	}
-
 }

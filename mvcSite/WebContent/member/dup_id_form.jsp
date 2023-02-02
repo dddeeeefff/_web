@@ -12,7 +12,7 @@ if (isChk == null) {	// 검사한 상태가 아니면
 	uid = "";
 } else {	// 중복 검사를 할 경우
 	String dbDriver = "com.mysql.cj.jdbc.Driver";
-	String dbUrl = "jdbc:mysql://localhost:3306/mall?useUnicode=true&" + 
+	String dbUrl = "jdbc:mysql://localhost:3306/remall?useUnicode=true&" + 
 		"characterEncoding=UTF8&verifyServerCertificate=false&" + 
 		"useSSL=false&serverTimezone=UTC";
 	

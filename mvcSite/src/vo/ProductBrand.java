@@ -19,5 +19,4 @@ public class ProductBrand {
 	public void setPb_name(String pb_name) {
 		this.pb_name = pb_name;
 	}
-
 }

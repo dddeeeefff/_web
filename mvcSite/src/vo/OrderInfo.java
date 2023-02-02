@@ -9,8 +9,7 @@ public class OrderInfo {
 	private String oi_invoice, oi_status, oi_date;
 	private int oi_pay, oi_upoint, oi_spoint;
 	private ArrayList<OrderDetail> detailList;
-	// 한 주문 내에서 주문된 상품들의 정보를 OrderDetail형 인스턴스로 저장
-	
+	// 한 주문내에서 주문된 상품들의 정보를 OrderDetail형 인스턴스들로 저장
 	
 	public String getOi_id() {
 		return oi_id;
@@ -48,7 +47,6 @@ public class OrderInfo {
 	public void setOi_addr1(String oi_addr1) {
 		this.oi_addr1 = oi_addr1;
 	}
-	
 	public String getOi_addr2() {
 		return oi_addr2;
 	}

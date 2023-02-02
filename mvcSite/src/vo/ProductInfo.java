@@ -4,13 +4,14 @@ import java.util.*;
 
 public class ProductInfo {
 // 하나의 상품 정보를 저장할 클래스
-	private String pi_id, pcs_id, pb_id, pi_name, pi_com, pi_isview, pi_date;
-	private String pi_img1, pi_img2, pi_img3, pi_desc, pi_special, pi_last;
+	private String pi_id, pcs_id, pb_id, pi_name, pi_com;
+	private String pi_img1, pi_img2, pi_img3, pi_desc, pi_special;
+	private String pi_isview, pi_date, pi_last;
 	private String pcb_name, pcs_name, pb_name;
 	// 상품 상세보기 화면에서 보여줄 분류와 브랜드명을 저장할 변수들
-	private float pi_score;
 	private int pi_price, pi_cost, pi_dc, pi_read;
 	private int pi_review, pi_sale, ai_idx, pi_ai_idx, stock;
+	private float pi_score;
 	private ArrayList<ProductStock> stockList;
 	// 현 상품에 속하는 옵션 및 재고량들을 저장할 ArrayList
 	
@@ -44,18 +45,6 @@ public class ProductInfo {
 	public void setPi_com(String pi_com) {
 		this.pi_com = pi_com;
 	}
-	public String getPi_isview() {
-		return pi_isview;
-	}
-	public void setPi_isview(String pi_isview) {
-		this.pi_isview = pi_isview;
-	}
-	public String getPi_date() {
-		return pi_date;
-	}
-	public void setPi_date(String pi_date) {
-		this.pi_date = pi_date;
-	}
 	public String getPi_img1() {
 		return pi_img1;
 	}
@@ -86,6 +75,18 @@ public class ProductInfo {
 	public void setPi_special(String pi_special) {
 		this.pi_special = pi_special;
 	}
+	public String getPi_isview() {
+		return pi_isview;
+	}
+	public void setPi_isview(String pi_isview) {
+		this.pi_isview = pi_isview;
+	}
+	public String getPi_date() {
+		return pi_date;
+	}
+	public void setPi_date(String pi_date) {
+		this.pi_date = pi_date;
+	}
 	public String getPi_last() {
 		return pi_last;
 	}
@@ -109,12 +110,6 @@ public class ProductInfo {
 	}
 	public void setPb_name(String pb_name) {
 		this.pb_name = pb_name;
-	}
-	public float getPi_score() {
-		return pi_score;
-	}
-	public void setPi_score(float pi_score) {
-		this.pi_score = pi_score;
 	}
 	public int getPi_price() {
 		return pi_price;
@@ -170,14 +165,16 @@ public class ProductInfo {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	public float getPi_score() {
+		return pi_score;
+	}
+	public void setPi_score(float pi_score) {
+		this.pi_score = pi_score;
+	}
 	public ArrayList<ProductStock> getStockList() {
 		return stockList;
 	}
 	public void setStockList(ArrayList<ProductStock> stockList) {
 		this.stockList = stockList;
 	}
-	
-	
-	
-
 }

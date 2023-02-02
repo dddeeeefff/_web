@@ -31,6 +31,14 @@ function replyIn() {
 	var writer = document.frmReply.writer.value;
 	var pw = document.frmReply.pw.value;
 	var content = document.frmReply.content.value;
+	
+<% if (!isLogin) { %>
+	if (writer == "" || pw == "") {
+		alert("작성자와 비밀번호 입력하세요.");
+		document.frmReply.writer.focus();
+		return;
+	}
+<% } %>	
 	if (content != "") {
 		$.ajax({
 			type : "POST", url : "/mvcSite/free_reply_proc_in", 
@@ -45,17 +53,43 @@ function replyIn() {
 		});
 	} else {
 		alert("댓글 내용을 입력하세요.");
+		document.frmReply.content.focus();
 	}
 }
 
 function replyDel(ismem, bfridx) {
 	if (confirm("정말 삭제하시겠습니까?")) {
 		if (ismem == 'n') {	// 삭제하려는 댓글이 비회원 글일 경우
-			location.href = "free_reply_form_pw?bfidx=<%=bfidx %>&bfridx=" + bfridx;
+			location.href = "free_reply_form_pw<%=args %>&bfidx=<%=bfidx %>&bfridx=" + bfridx;
 		} else if (ismem == 'y') {	// 삭제하려는 댓글이 회원 글일 경우
-			
+			location.href = "free_reply_proc_del<%=args %>&ismem=y&bfidx=<%=bfidx %>&bfridx=" + bfridx;
 		}
 	}	
+}
+
+function replyGnb(gnb, bfridx) {
+// ajax를 이용한 댓글 좋아요/싫어요 등록 함수
+<% if (isLogin) { %>
+	var msg = "좋아요";
+	if (gnb == "b")	msg = "싫어요";
+	$.ajax({
+		type : "POST", url : "/mvcSite/free_reply_proc_gnb", 
+		data : {"gnb" : gnb, "bfridx" : bfridx}, 
+		success : function(chkRs) {
+			if (chkRs == 2) {
+//				location.reload();
+				var a = parseInt($("#" + gnb + bfridx).text());
+				$("#" + gnb + bfridx).text(a + 1);
+			} else if (chkRs == -1) {
+				alert("이미 참여했습니다.");
+			} else {
+				alert(msg + " 처리에 실패했습니다.\n다시 시도해 보세요.");
+			}
+		}
+	});
+<% } else { %>
+	alert("로그인 후 사용하실 수 있습니다.");
+<% } %>
 }
 </script>
 <h2>자유 게시판 글 보기</h2>
@@ -68,6 +102,10 @@ function replyDel(ismem, bfridx) {
 <tr><th>제목</th><td colspan="5"><%=bf.getBf_title() %></td></tr>
 <tr><th>내용</th><td colspan="5"><%=bf.getBf_content().replaceAll("\r\n", "<br />") %></td></tr>
 </table>
+<br /><hr align="left" width="700" /><br />
+<p style="width:700px" align="center">
+	<input type = "button" value="목록" onclick="location.href='free_list<%=args %>';" />
+</p>
 <br /><hr align="left" width="700" /><br />
 <!-- 댓글 영역 시작 -->
 <form name="frmReply">
@@ -104,7 +142,8 @@ if (replyList.size() > 0) {	// 보여줄 댓글 목록이 있으면
 		
 		String lnkTu = "", lnkTd = "";	// 좋아요, 싫어요 링크
 		if (isLogin) {	// 현재 사용자가 로그인을 한 상태이면
-			
+			lnkTu = "javascript:replyGnb('g', " + bfr.getBfr_idx() + ");";	// 좋아요 링크
+			lnkTd = "javascript:replyGnb('b', " + bfr.getBfr_idx() + ");";	// 싫어요 링크
 		} else {	// 로그인 전이면
 			lnkTu = lnkTd = "javascript:alert('로그인 후 사용하실 수 있습니다.');";
 		}
@@ -112,9 +151,11 @@ if (replyList.size() > 0) {	// 보여줄 댓글 목록이 있으면
 <div class="reWriter">
 	<%=writer %>&nbsp;&nbsp;&nbsp;&nbsp;<%=bfr.getBfr_date() %>
 	<span>
-		<a href="<%=lnkTu %>"><img src="img/thumbs-up.png" width="12" /></a>
-		&nbsp;&nbsp;
-		<a href="<%=lnkTd %>"><img src="img/thumbs-down.png" width="12" /></a>
+		<a href="<%=lnkTu %>"><img src="img/thumbs-up.png" width="12" title="좋아요" /></a>
+		<span id="g<%=bfr.getBfr_idx() %>"><%=bfr.getBfr_good() %></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="<%=lnkTd %>"><img src="img/thumbs-down.png" width="12" title="싫어요" /></a>
+		<span id="b<%=bfr.getBfr_idx() %>"><%=bfr.getBfr_bad() %></span>
 <%
 		String lnkDel = "";
 		boolean isDel = false;	// 삭제 버튼 보여주기 여부를 저장할 변수

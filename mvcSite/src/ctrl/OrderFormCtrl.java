@@ -59,7 +59,6 @@ public class OrderFormCtrl extends HttpServlet {
 		// 구매할 상품 목록을 ArrayList로 받아옴
 		ArrayList<MemberAddr> addrList = orderFormSvc.getAddrList(miid);
 		// 현재 로그인한 회원의 주소 목록을 ArrayList로 받아옴
-		System.out.println(select + from + where);
 		
 		request.setAttribute("pdtList", pdtList);
 		request.setAttribute("addrList", addrList);

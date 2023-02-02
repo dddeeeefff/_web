@@ -7,9 +7,9 @@ import javax.servlet.http.*;
 import svc.*;
 import vo.*;
 
-@WebServlet("/cart_proc_Up")
+@WebServlet("/cart_proc_up")
 public class CartProcUpCtrl extends HttpServlet {
-	private static final long serialVersionUID = 1L;     
+	private static final long serialVersionUID = 1L;
     public CartProcUpCtrl() { super(); }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,10 +23,10 @@ public class CartProcUpCtrl extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		if (loginInfo == null) {
-			response.setContentType("text/html; charSet=utf-8");
+			response.setContentType("text/html; charset=utf-8;");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('로그인 후 사용할 수 있습니다.');");
+			out.println("alert('로그인 후 사용하실 수 있습니다.');");
 			out.println("location.replace('login_form.jsp?url=cart_view');");
 			out.println("</script>");
 			out.close();

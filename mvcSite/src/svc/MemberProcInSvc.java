@@ -16,7 +16,7 @@ public class MemberProcInSvc {
 		result = memberProcInDao.memberProcIn(memberInfo, memberAddr);
 		if (result == 3)	commit(conn);
 		else				rollback(conn);
-		// 사용한 쿼리가 insert, update, delete일 경우 반드시 트랜잭션을 완료해야 함
+		// 사용한 쿼리가 insert, update, delete 일 경우 반드시 트랜잭션을 완료해야 함
 		close(conn);
 		
 		return result;

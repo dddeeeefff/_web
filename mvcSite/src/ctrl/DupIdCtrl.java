@@ -18,11 +18,11 @@ public class DupIdCtrl extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
-		try{
+		try {
 			DupIdSvc dupIdSvc = new DupIdSvc();
 			int result = dupIdSvc.chkDupId(uid);
 			out.println(result);
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 			out.println(1);
 		}

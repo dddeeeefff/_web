@@ -13,11 +13,11 @@ public class ScheduleProcSvc {
 		ScheduleDao scheduleDao = ScheduleDao.getInstance();
 		scheduleDao.setConnection(conn);
 		
-		if (kind.equals("in")) {	// 老沥 殿废老 版快
+		if (kind.equals("in")) {		// 老沥 殿废老 版快
 			result = scheduleDao.scheduleInsert(si);
 		} else if (kind.equals("up")) {	// 老沥 荐沥老 版快
 			result = scheduleDao.scheduleUpdate(si);
-		} else if (kind.equals("del")) { // 老沥 昏力老 版快
+		} else if (kind.equals("del")) {// 老沥 昏力老 版快
 			result = scheduleDao.scheduleDelete(si);
 		}
 		

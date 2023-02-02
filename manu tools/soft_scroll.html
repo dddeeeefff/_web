@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Document</title>
+	<style>
+	body { margin:0; font-size:16px; line-height:1.5; background:#fff; color:#000; }
+	.dummy { margin:0 auto; width:40em; padding:6em 0; }
+	.back-to-top {
+		background:rgb(240, 240, 240); border-width:0; cursor:pointer; 
+		display:block; margin:0; padding:16px; width:100%; 
+	}
+	.back-to-top .label {
+		display:block; height:18px; margin:auto; overflow:hidden; width:26px; 
+	}
+	.back-to-top .label:before {
+		content:url("images/sprites2.png"); display:inline-block; 
+		font-size:0; line-height:0; margin-left:-40px; 
+	}
+	.no-js .back-to-top { display:none; }
+	</style>
+	<script src="jquery-3.6.0.js"></script>
+	<script>
+	function scrollableElement(elements) {
+	// scrollTop을 사용할 수 있는 요소를 리턴하는 함수
+		var i, len, el, $el, scrollable;
+		for (i = 0, len = arguments.length ; i < len ; i++) {
+		// i : 루프를 위한 변수, len : 매개변수(arguments)의 개수를 저장하기 위한 변수
+			el = arguments[i];
+			// i인덱스에 해당하는 매개변수를 el에 저장
+			$el = $(el);
+			// el을 객체화하여 사용
+			if ($el.scrollTop() > 0) {
+			// 해당 객체($el)의 스크롤바 상단 값이 0보다 크면(해당 객체로 스크롤이 움직였으면)
+				return el;	// 해당 객체를 리턴
+			} else {
+				$el.scrollTop(1);
+				scrollable = $el.scrollTop() > 0;
+				$el.scrollTop(0);
+				if (scrollable)	return el;
+				// 인위적으로 $el의 scrollTop값을 조절하여 리턴
+			}
+		}
+		return [];
+	}
+
+	$(document).ready(function() {
+		$(".back-to-top").each(function() {
+		// 해당 선택자에 대해 무한루프를 돌면서 작업함
+			var $el = $(scrollableElement("html", "body"));
+			// html과 body 중 스크롤이 가능한 요소를 감지
+
+			$(this).click(function (evt) {
+				evt.preventDefault();
+				// 현재 이벤트의 기본 동작을 중단시키는 기능
+				$el.animate({ scrollTop:0 }, 250);
+				// 스크롤을 일으킨 객체($el)의 scrollTop 값을 0으로 지정
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<div class="dummy">
+	<p>Lorem ipsum Enim do velit exercitation fugiat cillum labore et dolore ad minim dolor amet tempor nisi sunt Excepteur voluptate laborum et Duis labore cupidatat officia laboris minim cupidatat sit ad incididunt dolor in nulla elit sint do sit aliqua eu ut irure commodo exercitation dolore consequat est laborum Duis in dolore esse est dolore voluptate amet fugiat cupidatat Duis proident consequat nostrud Excepteur ea minim nisi eiusmod sed amet irure id ut officia occaecat nisi elit velit qui aliquip adipisicing consequat adipisicing aute laboris do consectetur sit officia elit in tempor aute eiusmod nulla dolore non sint in fugiat adipisicing amet quis in velit sit sunt Duis culpa deserunt Duis sed elit veniam exercitation Ut pariatur magna et id esse dolor dolore aliquip et in cillum commodo commodo et quis veniam magna irure laborum commodo enim tempor dolore velit ut adipisicing consequat dolore enim sunt eiusmod irure aliquip Duis magna laboris non in aliquip magna dolor dolore nulla nisi proident cupidatat laboris eu commodo adipisicing adipisicing ut aliquip eu aute veniam sint magna mollit nostrud ut sed consectetur et tempor consequat nisi nostrud dolore et officia adipisicing labore id enim nisi reprehenderit sunt fugiat ea Ut dolore sed eu in id velit esse et est labore eiusmod culpa adipisicing quis ea consectetur ea fugiat in culpa magna do laboris.</p>
+    <p>Lorem ipsum Proident irure magna dolore quis laboris deserunt ad aliquip non nostrud laborum sed et commodo ut elit cupidatat amet dolore est Ut aute et nulla dolore officia velit Ut ullamco id qui velit cupidatat dolore sed deserunt sed sed sit mollit labore esse laboris cupidatat Duis quis est ea mollit id nostrud Ut nostrud magna veniam cupidatat officia magna consectetur adipisicing sit exercitation est nisi ut fugiat exercitation non in dolor aute laborum anim incididunt commodo ut Duis cupidatat do in aliquip ea amet elit eiusmod ea nulla sed amet labore Duis incididunt do anim dolor culpa non aute cupidatat enim reprehenderit do eu esse commodo et dolor aliquip magna sint Excepteur deserunt dolore laboris magna occaecat non ea in proident voluptate nulla amet officia consequat Ut laboris irure non incididunt Ut eu id aliquip ea minim dolor nostrud ad labore incididunt ut in veniam sunt eiusmod est eiusmod anim sed ea pariatur id tempor commodo sint qui sit do Excepteur ut.</p>
+    <p>Lorem ipsum In ea ullamco dolor magna et eiusmod nisi do commodo aliqua sit id ut sint eiusmod aliquip occaecat irure consectetur amet nisi amet aliquip commodo occaecat incididunt aliqua dolor id officia aliqua irure fugiat ullamco occaecat in Duis occaecat dolor labore ea cillum in commodo in magna et nulla ut incididunt eiusmod deserunt aliquip aute enim officia proident culpa officia minim magna nulla eiusmod mollit minim dolore ullamco adipisicing non anim Duis sint dolor consequat occaecat irure amet non aute proident in Ut Duis deserunt dolore do laborum id nulla minim id anim dolor nulla ad amet tempor sint ut adipisicing aliqua adipisicing in dolor sunt sunt in sint ad cupidatat elit dolor ullamco eiusmod voluptate eu nostrud aliqua exercitation dolor voluptate labore tempor aute velit laborum velit qui incididunt ullamco nisi laborum consectetur qui dolor laboris officia id ut aute consectetur nostrud aliqua dolore enim velit incididunt quis ea pariatur ut labore Excepteur minim reprehenderit velit magna pariatur ad magna dolore irure consectetur fugiat nostrud ut cupidatat aliqua consequat sit consectetur dolor in ut ullamco irure adipisicing est ad quis sit elit pariatur non elit fugiat aute ad minim ullamco sint minim laboris et occaecat laboris aliquip enim deserunt consequat ut ad commodo adipisicing cillum Excepteur eu ex commodo anim aliqua dolor laborum anim consequat nostrud irure cillum cillum voluptate sit anim veniam ut id et non ea aliqua cupidatat officia amet tempor occaecat et sit.</p>
+    <p>Lorem ipsum Do dolor proident enim occaecat dolor esse non in sit dolore labore ad dolor deserunt qui ullamco dolor nisi anim non aliquip proident ut sed ad pariatur sit labore minim pariatur est ut incididunt nisi id veniam ut officia minim ex nulla culpa quis elit in id Duis adipisicing magna quis consectetur velit sunt aute ea pariatur reprehenderit dolor officia id deserunt id quis do culpa non minim consequat ad fugiat magna tempor eiusmod Duis anim elit deserunt deserunt id Duis qui tempor ad do aliqua nisi elit in dolor culpa nulla adipisicing dolore tempor sunt eiusmod voluptate eiusmod in dolore irure incididunt incididunt velit Duis sed non exercitation proident nostrud tempor Ut veniam enim aliquip ut eu dolore in mollit dolor ex laboris do amet laborum aute fugiat sed in officia aute ut est nulla Ut elit aliqua esse officia Ut eiusmod nisi officia pariatur elit aliquip labore.</p>
+</div>
+
+<button type="button" class="back-to-top">
+	<span class="label">페이지 위로 가기</span>
+</button>
+</body>
+</html>

@@ -20,20 +20,17 @@ public class MemberProcIn extends HttpServlet {
 		MemberAddr memberAddr = new MemberAddr();
 		
 		memberInfo.setMi_id(request.getParameter("mi_id").trim().toLowerCase());
-		memberInfo.setMi_pw(request.getParameter("mi_pw").trim().toLowerCase());
-		memberInfo.setMi_name(request.getParameter("mi_name").trim().toLowerCase());
-		memberInfo.setMi_gender(request.getParameter("mi_gender").trim().toLowerCase());
-		memberInfo.setMi_birth(request.getParameter("by") + "-" + 
-		request.getParameter("bm") + "-" + request.getParameter("bd").trim());
-		memberInfo.setMi_phone(request.getParameter("p1") + "-" + 
-		request.getParameter("p2") + "-" + request.getParameter("p3").trim());
-		memberInfo.setMi_email(request.getParameter("e1") + "@" 
-		+ request.getParameter("e3").trim());
+		memberInfo.setMi_pw(request.getParameter("mi_pw"));
+		memberInfo.setMi_name(request.getParameter("mi_name").trim());
+		memberInfo.setMi_gender(request.getParameter("mi_gender"));
+		memberInfo.setMi_birth(request.getParameter("by") + "-" + request.getParameter("bm") + "-" + request.getParameter("bd"));
+		memberInfo.setMi_phone(request.getParameter("p1") + "-" + request.getParameter("p2") + "-" + request.getParameter("p3"));
+		memberInfo.setMi_email(request.getParameter("e1").trim() + "@" + request.getParameter("e3").trim());
 		memberInfo.setMi_point(1000);
 		
-		memberAddr.setMi_id(request.getParameter("mi_id"));
+		memberAddr.setMi_id(request.getParameter("mi_id").trim().toLowerCase());
 		memberAddr.setMa_name("기본 주소");
-		memberAddr.setMa_zip(request.getParameter("ma_zip"));
+		memberAddr.setMa_zip(request.getParameter("ma_zip").trim());
 		memberAddr.setMa_addr1(request.getParameter("ma_addr1").trim());
 		memberAddr.setMa_addr2(request.getParameter("ma_addr2").trim());
 		
@@ -41,11 +38,11 @@ public class MemberProcIn extends HttpServlet {
 		int result = memberProcInSvc.memberProcIn(memberInfo, memberAddr);
 		if (result == 3) {	// 정상적으로 회원가입이 이루어 졌으면
 			response.sendRedirect("login_form");
-		} else {	// 회원 가입 실패		
+		} else {	// 회원 가입 실패
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('회원가입에 실패했습니다.\\n다시 시도하세요.');");
+			out.println("alert('회원 가입에 실패했습니다.\\n다시 시도하세요.')");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();

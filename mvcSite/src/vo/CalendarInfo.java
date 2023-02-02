@@ -1,6 +1,6 @@
 package vo;
 
-//일정 관리의 달력 출력에 필요한 정보들을 저장하는 클래스
+// 일정 관리의 달력 출력에 필요한 정보들을 저장하는 클래스
 public class CalendarInfo {
 	private int cYear, cMonth, cDay, sYear, sMonth, sDay, lastDay;
 	// 현재 연도, 현재 월, 현재 일, 검색 연도, 검색 월, 검색 일, 말일
@@ -60,5 +60,4 @@ public class CalendarInfo {
 	public void setLastDay(int lastDay) {
 		this.lastDay = lastDay;
 	}
-	
 }

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<title>Pie Chart</title>
+<script src="js/Chart.min.js"></script>
+<script src="js/utils.js"></script>
+<script>
+var config = {
+	type: 'pie',
+	data: {
+		datasets: [{
+			data: [300, 400, 350, 250, 550], 
+			backgroundColor: [
+				window.chartColors.red,
+				window.chartColors.orange,
+				window.chartColors.yellow,
+				window.chartColors.green,
+				window.chartColors.blue,
+			],
+			label: '점유율'
+		}],
+		labels: ["영역1", "영역2", "영역3", "영역4", "영역5"]
+	},
+	options: { responsive:true, title:{ display:true, text:'점유율(원형 차트)' } }
+};
+
+window.onload = function() {
+	var ctx = document.getElementById('chart-area').getContext('2d');
+	window.myPie = new Chart(ctx, config);
+};
+</script>
+</head>
+<body>
+<div id="canvas-holder" style="width:70%">
+<canvas id="chart-area"></canvas>
+</div>
+</body>
+</html>

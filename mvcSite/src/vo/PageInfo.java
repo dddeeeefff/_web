@@ -83,5 +83,4 @@ public class PageInfo {
 	public void setV(String v) {
 		this.v = v;
 	}
-	
 }

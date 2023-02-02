@@ -29,18 +29,18 @@ public class DupIdDao {
 		
 		try {
 			stmt = conn.createStatement();
-			String sql = "select count(*) from t_member_info " +
-			" where mi_id = '" + uid + "' ";
+			String sql = "select count(*) from t_member_info where mi_id = '" + uid +"' ";
 			rs = stmt.executeQuery(sql);
 			rs.next();	// count() 함수를 사용했기에 데이터가 없을 경우는 없음
 			result = rs.getInt(1);
 			
-		}catch (Exception e) {
+		} catch(Exception e) {
 			System.out.println("DupIdDao 클래스의 chkDupId() 메소드 오류");
 			e.printStackTrace();
 		} finally {
 			close(rs);	close(stmt);
 		}
+		
 		return result;
 	}
 }

@@ -16,7 +16,7 @@ public class CartProcInCtrl extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String piid = request.getParameter("piid");
 		int psidx = Integer.parseInt(request.getParameter("psidx"));
-		int cnt = Integer.parseInt(request.getParameter("cnt"));
+		int cnt= Integer.parseInt(request.getParameter("cnt"));
 		HttpSession session = request.getSession();
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
@@ -28,7 +28,7 @@ public class CartProcInCtrl extends HttpServlet {
 		CartProcInSvc cartProcInSvc = new CartProcInSvc();
 		int result = cartProcInSvc.cartInsert(oc);
 		
-		response.setContentType("text/html; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8;");
 		PrintWriter out = response.getWriter();
 		out.println(result);
 		// 장바구니 담기 기능을 호출했던 ajax를 사용한 곳으로 결과값을 리턴

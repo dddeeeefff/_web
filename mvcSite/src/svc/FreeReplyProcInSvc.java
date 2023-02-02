@@ -12,10 +12,10 @@ public class FreeReplyProcInSvc {
 		Connection conn = getConnection();
 		FreeReplyProcDao freeReplyProcDao = FreeReplyProcDao.getInstance();
 		freeReplyProcDao.setConnection(conn);
-				
+		
 		result = freeReplyProcDao.replyInsert(bfr);
-		if(result == 1)	commit(conn);
-		else			rollback(conn);
+		if (result == 1)	commit(conn);
+		else				rollback(conn);
 		close(conn);
 		
 		return result;

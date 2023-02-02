@@ -15,7 +15,7 @@ public class CartProcInSvc {
 		
 		result = cartProcDao.cartInsert(oc);
 		if (result == 1)	commit(conn);
-		else				rollback(conn);
+		else				rollback(conn);	
 		close(conn);
 		
 		return result;

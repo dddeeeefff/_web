@@ -10,7 +10,7 @@ import vo.*;
 @WebServlet("/free_reply_proc_in")
 public class FreeReplyProcInCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public FreeReplyProcInCtrl() {  super();  }
+    public FreeReplyProcInCtrl() { super(); }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -30,21 +30,21 @@ public class FreeReplyProcInCtrl extends HttpServlet {
 		}
 		
 		BbsFreeReply bfr = new BbsFreeReply();
-		bfr.setBf_idx(bfidx);		bfr.setBfr_writer(writer);
-		bfr.setBfr_pw(pw);			bfr.setBfr_content(content);
-		bfr.setBfr_ismem(ismem);	bfr.setBfr_ip(request.getRemoteAddr());
+		bfr.setBf_idx(bfidx);	bfr.setBfr_writer(writer);
+		bfr.setBfr_pw(pw);		bfr.setBfr_content(content);
+		bfr.setBfr_ismem(ismem);bfr.setBfr_ip(request.getRemoteAddr());
 		
 		FreeReplyProcInSvc freeReplyProcInSvc = new FreeReplyProcInSvc();
 		int result = freeReplyProcInSvc.replyInsert(bfr);
 		
-		response.setContentType("text/html charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println(result);
+		out.println(writer);
 		// 댓글 등록 기능을 호출했던 ajax를 사용한 곳으로 결과값을 리턴
 	}
 	
 	private String getStr(String str) {
 	// 사용자가 입력한 문자열에 대한 처리를 해서 리턴하는 메소드
-		return str.trim().replace("'", "''").replace("<", "&it");
+		return str.trim().replace("'", "''").replace("<", "&lt;");
 	}
 }

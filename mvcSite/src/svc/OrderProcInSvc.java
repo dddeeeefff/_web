@@ -14,13 +14,13 @@ public class OrderProcInSvc {
 		orderProcDao.setConnection(conn);
 		
 		result = orderProcDao.orderInsert(kind, oi, temp);
-		// result : 주문번호, 적용된 레코드 수, 적용되야 할 레코드 수
+		// result : 주문번호, 적용된 레코드 수, 적용되야할 레코드 수
 		String[] arr = result.split(",");
 		if (arr[1].equals(arr[2]))	commit(conn);
 		// 실제 적용된 레코드 개수와 적용되어야 할 레코드 개수가 같으면
-		else						rollback(conn);
+		else								rollback(conn);
 		close(conn);
-		
+
 		return result;
 	}
 }

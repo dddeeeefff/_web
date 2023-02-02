@@ -15,5 +15,7 @@
 <input type="text" name="key" placeholder="상품명 검색" size="8" />
 <input type="submit" value="검색" />
 </form>
+<hr />
+<a href="combo_ctgr">상품분류</a>
 </body>
 </html>

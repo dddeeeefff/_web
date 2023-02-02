@@ -6,7 +6,7 @@ public class ActionForward {
 	// 이동할 View 페이지의 url을 저장할 변수
 	private boolean redirect;
 	// 이동 방식(true : 리다이렉트, false : 디스패치)을 저장할 변수
-	// boolean 변수의 값을 지정하지 않으면 기본값인 false가 들어가서 '디스패치' 방식으로 이동하게 됨
+	// boolean 변수이므로 값을 지정하지 않으면 기본값은 false가 들어가서 '디스패치' 방식으로 이동하게 됨
 	
 	public String getPath() {
 		return path;
@@ -20,4 +20,5 @@ public class ActionForward {
 	public void setRedirect(boolean redirect) {
 		this.redirect = redirect;
 	}
+	
 }

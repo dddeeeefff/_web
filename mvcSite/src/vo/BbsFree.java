@@ -3,7 +3,8 @@ package vo;
 public class BbsFree {
 // 하나의 자유게시판 게시글 정보를 저장할 클래스
 	private int bf_idx, bf_read, bf_reply;
-	private String bf_ismem, bf_writer, bf_pw, bf_header, bf_title, bf_content, bf_ip, bf_date, bf_isdel;
+	private String bf_ismem, bf_writer, bf_pw, bf_header, bf_title;
+	private String bf_content, bf_ip, bf_date, bf_isdel;
 	
 	public int getBf_idx() {
 		return bf_idx;
@@ -77,5 +78,4 @@ public class BbsFree {
 	public void setBf_isdel(String bf_isdel) {
 		this.bf_isdel = bf_isdel;
 	}
-	
 }

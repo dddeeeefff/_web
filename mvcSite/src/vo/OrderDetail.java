@@ -65,5 +65,4 @@ public class OrderDetail {
 	public void setPi_isview(String pi_isview) {
 		this.pi_isview = pi_isview;
 	}
-	
 }

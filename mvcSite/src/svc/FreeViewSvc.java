@@ -12,7 +12,7 @@ public class FreeViewSvc {
 		Connection conn = getConnection();
 		FreeProcDao freeProcDao = FreeProcDao.getInstance();
 		freeProcDao.setConnection(conn);
-				
+		
 		result = freeProcDao.readUpdate(bfidx);
 		if (result == 1)	commit(conn);
 		else				rollback(conn);
@@ -20,13 +20,14 @@ public class FreeViewSvc {
 		
 		return result;
 	}
+	
 	public BbsFree getFreeInfo(int bfidx) {
-		BbsFree bf = null;
+		BbsFree bf = new BbsFree();
 		Connection conn = getConnection();
 		FreeProcDao freeProcDao = FreeProcDao.getInstance();
 		freeProcDao.setConnection(conn);
-				
-		bf = freeProcDao.getFreeInfo(bfidx);	
+		
+		bf = freeProcDao.getFreeInfo(bfidx);
 		close(conn);
 		
 		return bf;

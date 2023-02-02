@@ -7,7 +7,7 @@ import dao.*;
 import vo.*;
 
 public class OrderFormSvc {
-	public ArrayList<OrderCart> getBuyList(String kind, String sql){
+	public ArrayList<OrderCart> getBuyList(String kind, String sql) {
 		ArrayList<OrderCart> pdtList = new ArrayList<OrderCart>();
 		Connection conn = getConnection();
 		OrderProcDao orderProcDao = OrderProcDao.getInstance();
@@ -18,7 +18,6 @@ public class OrderFormSvc {
 		
 		return pdtList;
 	}
-	
 	public ArrayList<MemberAddr> getAddrList(String miid) {
 		ArrayList<MemberAddr> addrList = new ArrayList<MemberAddr>();
 		Connection conn = getConnection();

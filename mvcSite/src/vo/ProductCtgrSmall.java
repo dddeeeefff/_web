@@ -27,5 +27,4 @@ public class ProductCtgrSmall {
 	public void setPcs_name(String pcs_name) {
 		this.pcs_name = pcs_name;
 	}
-
 }

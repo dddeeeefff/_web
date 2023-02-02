@@ -1,10 +1,9 @@
 package dao;
 
 import static db.JdbcUtil.*;
-import java.sql.*;
 import java.util.*;
+import java.sql.*;
 import vo.*;
-
 
 public class ProductProcDao {
 // 상품 관련된 쿼리 작업(목록, 상세보기)들을 모두 처리하는 클래스
@@ -17,6 +16,7 @@ public class ProductProcDao {
 		
 		return productProcDao;
 	}
+	
 	public void setConnection(Connection conn) {
 		this.conn = conn;
 	}
@@ -26,19 +26,19 @@ public class ProductProcDao {
 		Statement stmt = null;
 		int result = 0;
 		
-		try {			
-			String sql = "update t_product_info set pi_read = " + 
-			" pi_read + 1 where pi_id = '" + piid + "' ";
+		try { 
+			String sql = "update t_product_info set pi_read = pi_read + 1 " + 
+						" where pi_id = '" + piid + "' ";
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(sql);
 			
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 readUpdate() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(stmt);
 		}
-	
+		
 		return result;
 	}
 	
@@ -48,13 +48,13 @@ public class ProductProcDao {
 		ResultSet rs = null;
 		ProductInfo pi = null;
 		
-		try {			
-			String sql = "select a.*, b.pcb_name, c.pcs_name, " + 
-			"d.pb_name from t_product_info a, t_product_ctgr_big b, " + 
-			" t_product_ctgr_small c, t_product_brand d " + 
-			" where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id " + 
-			" and a.pb_id = d. pb_id and a.pi_isview = 'y' " + 
-			" and a.pi_id = '" + piid + "' ";
+		try { 
+			String sql = "select a.*, b.pcb_name, c.pcs_name, d.pb_name " + 
+						" from t_product_info a, t_product_ctgr_big b, " +  
+						" t_product_ctgr_small c, t_product_brand d " +  
+						" where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id " +  
+						" and a.pb_id = d.pb_id and a.pi_isview = 'y' " + 
+						" and a.pi_id = '" + piid + "' ";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
@@ -86,7 +86,7 @@ public class ProductProcDao {
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getProductInfo() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
 		
@@ -100,14 +100,12 @@ public class ProductProcDao {
 		ArrayList<ProductStock> stockList = new ArrayList<ProductStock>();
 		ProductStock ps = null;
 		
-		try {			
-			String sql = "select ps_idx, ps_size, ps_stock " +
-			" from t_product_stock where ps_isview = 'y' " + 
-			" and pi_id = '" + piid + "' ";
+		try {
+			String sql = "select ps_idx, ps_size, ps_stock from t_product_stock " + 
+						" where ps_isview = 'y' and pi_id = '" + piid + "'";
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
+			rs = stmt.executeQuery(sql);	
+			while(rs.next()) {
 				ps = new ProductStock();
 				ps.setPs_idx(rs.getInt("ps_idx"));
 				ps.setPi_id(piid);
@@ -115,24 +113,24 @@ public class ProductProcDao {
 				ps.setPs_stock(rs.getInt("ps_stock"));
 				stockList.add(ps);
 			}
+			
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getStockList() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
 		
 		return stockList;
-		
 	}
 	
-	public int getProductCount(String where){
-	// 검색되는 상품의 개수(select 쿼리 실행결과의 레코드 개수)를 리턴하는 메소드
+	public int getProductCount(String where) {
+	// 검색 되는 상품의 개수(select 쿼리 실행결과의 레코드 개수)를 리턴하는 메소드
 		Statement stmt = null;
 		ResultSet rs = null;
 		int rcnt = 0;
-		
-		try {			
+
+		try { 
 			String sql = "select count(*) from t_product_info a " + 
 			" where a.pi_isview = 'y' " + where;
 			stmt = conn.createStatement();
@@ -142,26 +140,25 @@ public class ProductProcDao {
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getProductCount() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
+		
 		return rcnt;
 	}
 	
 	public ArrayList<ProductInfo> getProductList(int cpage, int psize, String where, String orderBy) {
-	// 검색되는 상품 목록을 지정한 페이지에 맞춰 ArrayList<ProductInfo>형으로 리턴하는 메소드
+	// 검색되는 상품 목록은 지정한 페이지에 맞춰 ArrayList<ProductInfo>형으로 리턴하는 메소드
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<ProductInfo> productList = new ArrayList<ProductInfo>();
 		ProductInfo pi = null;
 		
-		try {			
-			String sql = "select a.pi_id, a.pi_img1, a.pi_name, a.pi_price, a.pi_dc, " +
-						" a.pi_special, a.pi_score, a.pi_review, sum(b.ps_stock) stock " +
-						" from t_product_info a, t_product_stock b " + 
-						" where a.pi_id = b.pi_id and a.pi_isview = 'y' " + 
-						where + " group by a.pi_id " + orderBy + 
-						" limit " + ((cpage - 1) * psize) + ", " + psize;
+		try {
+			String sql = "select a.pi_id, a.pi_img1, a.pi_name, a.pi_price, a.pi_dc, " + 
+			"a.pi_special, a.pi_score, a.pi_review, sum(b.ps_stock) stock " + 
+			" from t_product_info a, t_product_stock b where a.pi_id = b.pi_id and a.pi_isview = 'y' " + 
+			where + " group by a.pi_id " + orderBy + " limit " + ((cpage - 1) * psize) + ", " + psize;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
@@ -182,7 +179,7 @@ public class ProductProcDao {
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getProductList() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
 		
@@ -196,7 +193,7 @@ public class ProductProcDao {
 		ArrayList<ProductBrand> brandList = new ArrayList<ProductBrand>();
 		ProductBrand pb = null;
 		
-		try {			
+		try {
 			String sql = "select * from t_product_brand";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -207,13 +204,13 @@ public class ProductProcDao {
 				pb.setPb_name(rs.getString("pb_name"));
 				brandList.add(pb);
 			}
-			
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getBrandList() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
+		
 		return brandList;
 	}
 	
@@ -224,7 +221,7 @@ public class ProductProcDao {
 		ArrayList<ProductCtgrSmall> smallList = new ArrayList<ProductCtgrSmall>();
 		ProductCtgrSmall pcs = null;
 		
-		try {			
+		try {
 			String sql = "select * from t_product_ctgr_small where pcb_id = '" + pcb + "' ";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -236,13 +233,13 @@ public class ProductProcDao {
 				pcs.setPcs_name(rs.getString("pcs_name"));
 				smallList.add(pcs);
 			}
-			
 		} catch(Exception e) {
 			System.out.println("ProductProcDao 클래스의 getCtgrSmallList() 메소드 오류");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs);	close(stmt);
 		}
+		
 		return smallList;
 	}
 }

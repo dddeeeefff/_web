@@ -1,6 +1,6 @@
 package svc;
 
-import static db.JdbcUtil.*;	// JdbcUtil 클래스의 모든 멤버들을 자유롭게 사용함
+import static db.JdbcUtil.*;	// JdbcUtil 클래스의 모든 멤버들을 자유롭게 사용
 import java.util.*;
 import java.sql.*;
 import dao.*;

@@ -1,8 +1,9 @@
 package vo;
 
-// 한 명의 회원 정보를 저장할 클래스
+// 한명의 회원 정보를 저장할 클래스
 public class MemberInfo {
-	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_lastlogin, mi_joindate, mi_status;
+	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone; 
+	private String mi_email, mi_lastlogin, mi_joindate, mi_status;
 	private int mi_point;
 	
 	public String getMi_id() {

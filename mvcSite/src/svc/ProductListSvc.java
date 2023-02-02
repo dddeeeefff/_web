@@ -7,7 +7,7 @@ import dao.*;
 import vo.*;
 
 public class ProductListSvc {
-	public int getProductCount(String where){
+	public int getProductCount(String where) {
 		int rcnt = 0;
 		Connection conn = getConnection();
 		ProductProcDao productProcDao = ProductProcDao.getInstance();

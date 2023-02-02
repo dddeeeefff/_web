@@ -10,8 +10,8 @@ import vo.*;
 
 @WebServlet("/order_end")
 public class OrderEndCtrl extends HttpServlet {
-	private static final long serialVersionUID = 1L;      
-    public OrderEndCtrl() { super();}
+	private static final long serialVersionUID = 1L;
+    public OrderEndCtrl() { super(); }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -24,7 +24,7 @@ public class OrderEndCtrl extends HttpServlet {
 		OrderInfo orderInfo = orderEndSvc.getOrderInfo(miid, oiid);
 		
 		if (orderInfo == null) {	// 주문 정보가 없을 경우
-			response.setContentType("text/html; charSet=utf-8");
+			response.setContentType("text/html; charset=utf-8;");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");
@@ -33,8 +33,7 @@ public class OrderEndCtrl extends HttpServlet {
 			out.close();
 		} else {	// 주문 정보가 있을 경우
 			request.setAttribute("orderInfo", orderInfo);
-			RequestDispatcher dispatcher = 
-					request.getRequestDispatcher("order/order_end.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("order/order_end.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

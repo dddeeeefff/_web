@@ -9,7 +9,7 @@ public class OrderCart {
 	private int pi_price, pi_dc, ps_stock, ps_size;
 	private String pi_name, pi_img1;
 	private ArrayList<ProductStock> stockList;
-	// 현 상품에 속하는 옵션 및 재고량들을 저장할 ArrayList
+	// 현상품에 속하는 옵션 및 재고량들을 저장할 ArrayList
 	
 	public int getOc_idx() {
 		return oc_idx;
@@ -65,7 +65,6 @@ public class OrderCart {
 	public void setPs_stock(int ps_stock) {
 		this.ps_stock = ps_stock;
 	}
-	
 	public int getPs_size() {
 		return ps_size;
 	}
@@ -90,5 +89,4 @@ public class OrderCart {
 	public void setStockList(ArrayList<ProductStock> stockList) {
 		this.stockList = stockList;
 	}
-
 }

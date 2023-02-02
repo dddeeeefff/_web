@@ -128,15 +128,15 @@ String[] arr = oiphone.split("-");
 <h2>결제 정보</h2>
 <p style="width:800px;">
 	<input type="radio" name="oi_payment" value="a" id="payA" />
-	<lable for="payA">카드 결제</lable>&nbsp;&nbsp;&nbsp;&nbsp;
+	<label for="payA">카드 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="radio" name="oi_payment" value="b" id="payB" />
-	<lable for="payB">휴대폰 결제</lable>&nbsp;&nbsp;&nbsp;&nbsp;
+	<label for="payB">휴대폰 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="radio" name="oi_payment" value="c" id="payC" />
-	<lable for="payC">무통장 입금</lable>
+	<label for="payC">무통장 입금</label>
 </p>
-</hr />
-<p style="width:800px; text-align:center;">
-	<input type="submit" value="구매하기" />
+<hr />
+<p style="width:800px;" text-align="center;">
+	<input type="submit" value="구매 하기" />
 </p>
 </form>
 </body>

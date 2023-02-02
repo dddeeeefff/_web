@@ -41,5 +41,4 @@ public class ScheduleInfo {
 	public void setSi_date(String si_date) {
 		this.si_date = si_date;
 	}
-
 }

@@ -9,8 +9,8 @@ import java.io.*;
 import svc.*;
 import vo.*;
 
-public class ScheduleFormAct implements Action{
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception{
+public class ScheduleFormAct implements Action {
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
 		int y = Integer.parseInt(request.getParameter("y"));
@@ -24,13 +24,13 @@ public class ScheduleFormAct implements Action{
 		ci.setLastDay(eDay.getDayOfMonth());
 		LocalDate cDate = LocalDate.now();
 		ci.setcYear(cDate.getYear());
-				
+		
 		ScheduleInfo si = null;	// 수정 작업시 기존의 일정을 저장하기 위한 인스턴스
 		HttpSession session = request.getSession();
 		MemberInfo mi = (MemberInfo)session.getAttribute("loginInfo");
-		if(mi == null) {
+		if (mi == null) {
 			PrintWriter out = response.getWriter();
-			response.setContentType("text/html charSet=utf-8");
+			response.setContentType("text/html; charset=utf-8");
 			out.println("<script>");
 			out.println("alert('로그인 후 사용하실 수 있습니다.');");
 			out.println("location.href='login_form?url=schedule.sch';");
@@ -43,8 +43,8 @@ public class ScheduleFormAct implements Action{
 			ScheduleFormSvc scheduleFormSvc = new ScheduleFormSvc();
 			si = scheduleFormSvc.getScheduleInfo(mi.getMi_id(), idx);
 			if (si == null) {
+				response.setContentType("text/html; charset=utf-8");
 				PrintWriter out = response.getWriter();
-				response.setContentType("text/html charSet=utf-8");
 				out.println("<script>");
 				out.println("alert('잘못된 경로로 들어 오셨습니다.');");
 				out.println("history.back();");

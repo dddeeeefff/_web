@@ -15,45 +15,44 @@ public class JdbcUtil {
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/MySQLDB");
 			conn = ds.getConnection();
 			conn.setAutoCommit(false);
-			// 쿼리가 자동으로 commit 되는 것을 막는 명령으로 트랜잭션을 시작시킴
-		} catch (Exception e) {
-			System.out.println("DB 연결 실패!!!!!!!!!!!!!!!!");
+			// 쿼리가 자동으로 commit 되는 것을 막는 명령으로 트랙잭션을 시작시킴
+			
+		} catch(Exception e) {
+			System.out.println("DB 연결 실패!!!!!!!!!!!!!!");
 			e.printStackTrace();
-		}		
+		}
+		
 		return conn;
-	} 
+	}
 	
 	public static void close(Connection conn) {
-	// Connection 객체를 받아 DB와의 연결을 끊어주는 메소드
-		try { conn.close(); } 
-		catch (Exception e) { e.printStackTrace(); }
+	// Connection 객체를 받아 DB와의 연결의 끊어주는 메소드
+		try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
 	}
-
+	
 	public static void close(Statement stmt) {
-	// PreparedStatement와 CallabledStatement는 둘다 Statement를 상속받으므로
-	// 따로 close() 메소드가 필요없음
-		try { stmt.close(); } 
-		catch (Exception e) { e.printStackTrace(); }
+	// PreparedStatement와 CallableStatement는 둘 다 Statement를 상속받으므로 따로 close() 메소드가 필요 없음
+		try { stmt.close(); } catch(Exception e) { e.printStackTrace(); }
 	}
+	
 	public static void close(ResultSet rs) {
 	// ResultSet 객체를 닫아주는 메소드
-		try { rs.close(); } 
-		catch (Exception e) { e.printStackTrace(); }
+		try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
 	}
 	
 	public static void commit(Connection conn) {
 	// transaction을 commit 시키는 메소드
-		try{
+		try {
 			conn.commit();
 			System.out.println("쿼리 성공");
-		} catch (Exception e) { e.printStackTrace(); }
+		} catch(Exception e) { e.printStackTrace(); }
 	}
 	
 	public static void rollback(Connection conn) {
 	// transaction을 rollback 시키는 메소드
-		try{
+		try {
 			conn.rollback();
 			System.out.println("쿼리 실패");
-		} catch (Exception e) { e.printStackTrace(); }
+		} catch(Exception e) { e.printStackTrace(); }
 	}
 }

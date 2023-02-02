@@ -3,7 +3,8 @@ package vo;
 public class BbsFreeReply {
 // 자유게시판 내 하나의 댓글을 저장할 클래스
 	private int bfr_idx, bf_idx, bfr_good, bfr_bad;
-	private String bfr_ismem, bfr_writer, bfr_pw, bfr_content, bfr_ip, bfr_date, bfr_isdel;
+	private String bfr_ismem, bfr_writer, bfr_pw, bfr_content;
+	private String bfr_ip, bfr_date, bfr_isdel;
 	
 	public int getBfr_idx() {
 		return bfr_idx;
@@ -71,5 +72,4 @@ public class BbsFreeReply {
 	public void setBfr_isdel(String bfr_isdel) {
 		this.bfr_isdel = bfr_isdel;
 	}
-	
 }

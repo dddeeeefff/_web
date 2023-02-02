@@ -12,7 +12,7 @@ public class FreeReplyListSvc {
 		Connection conn = getConnection();
 		FreeReplyProcDao freeReplyProcDao = FreeReplyProcDao.getInstance();
 		freeReplyProcDao.setConnection(conn);
-				
+		
 		replyList = freeReplyProcDao.getReplyList(bfidx);
 		close(conn);
 		

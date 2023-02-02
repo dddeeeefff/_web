@@ -11,17 +11,17 @@ import vo.*;
 public class LoginCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public LoginCtrl() { super(); }
-    
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("uid").trim().toLowerCase();
 		String pwd = request.getParameter("pwd").trim();
 		String url = request.getParameter("url").replace('$', '&');
-		// 쿼리스트링이 있는 url 값은 '&'를  '$'로 변경시켜 받아오기 때문에 다시 변경시켜야 함
+		// 쿼리스트링이 있는 url 값은 '&'를 '$'로 변경시켜 받아오기 때문에 다시 변경시켜야 함
 		
-		LoginSvc loginSvc = new LoginSvc();
-		MemberInfo loginInfo = loginSvc.getLoginInfo(uid, pwd);
-			
+		LoginSvc logivSvc = new LoginSvc();
+		MemberInfo loginInfo = logivSvc.getLoginInfo(uid, pwd);
+		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		if (loginInfo != null) {	// 로그인 성공시

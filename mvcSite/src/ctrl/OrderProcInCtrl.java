@@ -1,10 +1,6 @@
 package ctrl;
 
-import static db.JdbcUtil.commit;
-
 import java.io.*;
-import java.lang.ProcessBuilder.Redirect;
-
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -33,7 +29,7 @@ public class OrderProcInCtrl extends HttpServlet {
 		String kind = request.getParameter("kind");
 		int total = Integer.parseInt(request.getParameter("total"));
 		
-		// 배송지 및 경제 정보
+		// 배송지 및 결제 정보
 		String rname = request.getParameter("oi_rname");
 		String p1 = request.getParameter("p1");
 		String p2 = request.getParameter("p2");
@@ -60,30 +56,30 @@ public class OrderProcInCtrl extends HttpServlet {
 		} else {	// 바로 구매일 경우
 			
 		}
+		
 		result = orderProcInSvc.orderInsert(kind, oi, temp);
 		String[] arr = result.split(",");
 		if (arr[1].equals(arr[2])) {	// 정상적으로 구매가 이루어졌으면
 			response.sendRedirect("order_end?oiid=" + arr[0]);
-/*	주문 번호를 쿼리스트링이 아닌 pots방식으로 보내 숨기는 방법
-			response.setContentType("text/html; charSet=utf-8");
+/*	주문 번호를 쿼리스트링이 아닌 post방식으로 보내 숨기는 방법
+			response.setContentType("text/html; charset=utf-8;");
 			PrintWriter out = response.getWriter();
 			out.println("<form name='frm' action='order_end' method='post'>");
-			out.println("<intput type='hidden' name='oiid' value= '" + arr[0] + "' />");
+			out.println("<input type='hidden' name='oiid' value='" + arr[0] + "' />");
 			out.println("</form>");
 			out.println("<script>");
 			out.println("document.frm.submit();");
 			out.println("</script>");
-			out.close();	
+			out.close();
 */
-		}else {		// 정상적으로 구매가 이루어지지 않았으면
-			response.setContentType("text/html; charSet=utf-8");
+		} else {	// 정상적으로 구매가 이루어지지 않았으면
+			response.setContentType("text/html; charset=utf-8;");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('구매가 정상적으로 처리되지 않았습니다.\\n고객센터에 문의 하세요.');");
+			out.println("alert('구매가 정상적으로 처리되지 않았습니다.\\n고객 센터에 문의 하세요.');");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
 		}
 	}
-
 }
