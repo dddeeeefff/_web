@@ -31,6 +31,6 @@ public class CartProcInCtrl extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8;");
 		PrintWriter out = response.getWriter();
 		out.println(result);
-		// Àå¹Ù±¸´Ï ´ã±â ±â´ÉÀ» È£ÃâÇß´ø ajax¸¦ »ç¿ëÇÑ °÷À¸·Î °á°ú°ªÀ» ¸®ÅÏ
+		// ï¿½ï¿½Ù±ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½? È£ï¿½ï¿½ï¿½ß´ï¿½ ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½
 	}
 }
