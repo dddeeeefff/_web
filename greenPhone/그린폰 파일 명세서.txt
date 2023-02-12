@@ -1,0 +1,190 @@
+파일 명세서
+
+ 
+ - 프론트
+메인 화면 : index.jsp
+
+/member/ 회원 정보 : 로그인, 아이디 찾기, 비밀번호 찾기, 회원 가입, 회원 정보 수정, 비밀번호 변경, 회원 탈퇴, 포인트 내역
+ : 정보 저장 클래스 : MemberInfo, MemberPoint
+
+ : 로그인 폼(login_form)
+	C : LoginFormCtrl	/ M : 없음							/ V : login_form.jsp
+	
+ : 로그인 처리(login)
+	C : LoginCtrl	/ M : LoginSvc, LoginDao	
+	
+ : 아이디 찾기 폼(find_id_form)
+	C : FindIdFormCtrl	/ M : 없음							/ V : find_id_form.jsp
+	
+ : 아이디 찾기 처리(find_id_proc)
+	C : FindIdProcCtrl	/ M : FindIdProcSvc, FindIdProcDao	/ V : find_id_form 호출
+	
+ : 비밀번호 찾기 폼(find_pw_form)
+	C : FindPwFormCtrl	/ M : 없음							/ V : find_pw_form.jsp
+	
+ : 비밀번호 찾기 처리(find_pw_proc)
+	C : FindPwProcCtrl	/ M : FindPwProcSvc, FindPwProcDao	/ V : find_pw_form 호출
+
+ : 회원 가입 폼(member_form_in)
+	C : MemberFormInCtrl	/ M : 없음							/ V : member_form_in.jsp
+	
+ : 회원 가입 처리(member_proc_in)
+	C : MemberProcInCtrl	/ M : MemberProcInSvc, MemberProcDao	/ V : index.jsp
+	
+ : 회원 정보 수정 폼(member_form_up)
+	C : MemberFormUpCtrl	/ M : 없음							/ V : member_form_up.jsp
+	
+ : 회원 정보 수정 처리(member_proc_up)
+	C : MemberProcUpCtrl	/ M : MemberProcUpSvc, MemberProcDao	/ V : member_form_up 호출
+	
+ : 비밀번호 변경 폼(change_pw_form)
+	C : ChangePwFormCtrl	/ M : 없음							/ V : change_pw_form_up.jsp
+	
+ : 비밀번호 변경 처리(change_pw_proc)
+	C : ChangePwProcCtrl	/ M : ChangePwProcSvc, ChangePwProcDao		/ V : change_pw_form 호출
+		
+ : 회원 탈퇴 화면(member_out)
+	C : MemberOutCtrl	/ M : 없음							/ V : member_out.jsp
+	
+ : 회원 탈퇴 처리(member_out_proc)
+	C : MemberOutProcCtrl	/ M : MemberOutProcSvc, MemberOutProcDao	/ v : index.jsp
+	
+ : 포인트 내역 목록(point_list)
+	C : PointListCtrl	/ M : PointListSvc, PointProcDao		/ V : point_list.jsp
+
+	
+/buy/ 회원이 구매하는 상품 : 목록(페이징, 검색), 보기
+ : 정보저장 클래스 : ProductInfo, ProductBrand, ProductSeries, ProductOption
+ : 상품목록(product_list) : 사용자가 입력 또는 선택한 조건들로 검색 및 정렬
+	C : ProductListCtrl / M : ProductListSvc, ProductDao / V : product_list.jsp
+	검색조건 : sch : 가격(p) / 상품명(n) / 브랜드명(b)
+	정렬기준(o) : 등록역순(a:최신순, 기본), 인기순(b:판매량), 할인율(c:desc), 가격(d:asc, e:desc)
+	보기방식(v) : 갤러리(g:기본), 목록형(l)
+
+ : 상품상세(product_view) : 옵션 및 수량 선택, 장바구니와 바로구매로 링크
+	C : ProductViewCtrl / M : ProductViewSvc, ProductDao / V : product_view.jsp, ajax
+
+	
+/sell/ 회원이 판매하는 상품 : 판매 메인화면, 판매 신청 폼
+ : 정보저장 클래스 : BuyInfo
+ : 판매 메인 화면(sell_index) : 판매 진행 절차등이 설명되어 있는 화면 및 신청화면으로 이동할 버튼
+	C : SellIndexCtrl / M : 없음							/ V : sell_index.jsp
+
+ : 판매 신청 폼(sell_form) : 판매할 상품에 대한 정보를 입력할 폼
+	C : SellFormCtrl / M : 없음 / V : sell_form.jsp
+	
+ : 판매 신청 처리(sell_proc) : 판매할 상품에 대한 정보를 처리
+	C : SellProcCtrl / M : SellProcSvc, SellProcDao		 / V : /order/sell_view 호출
+
+
+/order/ 장바구니처리(in, up, del), 장바구니화면, 결제화면, 구매처리, 구매확인화면
+ : 정보저장 클래스 : SellCart, SellInfo, SellDetail, MemberInfo
+ : 장바구니처리(in : cart_proc_in) : 사용자가 선택한 상품을 장바구니에 입력
+	C : CartProcInCtrl	/ M : CartProcInSvc, CartDao	/ V : ajax, cart_view 호출(장바구니로 이동시)
+ : 장바구니처리(up : cart_proc_up) : 사용자가 변경한 상품의 수량을 장바구니에 적용
+	C : CartProcUpCtrl	/ M : CartProcUpSvc, CartDao	/ V : ajax
+ : 장바구니처리(del : cart_proc_del) : 사용자가 선택한 상품을 장바구니에서 삭제(한개 또는 여러 개 삭제)
+	C : CartProcDelCtrl	/ M : CartProcDelSvc, CartDao	/ V : ajax
+ : 장바구니화면(cart_view)
+	C : CartViewCtrl	/ M : CartViewSvc, CartDao		/ V : cart_view.jsp
+
+ : 결제화면(order_form) : 구매하려는 상품들과 회원의 주소를 보여주고, 배송지를 변경할 수 있는 폼을 팝업창으로 띄워줄 수 있고, 결제방식을 선택할 수 있는 폼 화면
+	C : OrderFormCtrl	/ M : OrderFormSvc, OrderDao	/ V : order_form.jsp
+ : 결제화면-배송지 변경 팝업창(order_addr_form) : 구매시 배송지를 변경(JavaScript)할 수 있고 선택에 따라 기본주소까지 변경(js 함수 내에서 ajax 사용 후 배송지 변경)될 수 있는 폼 화면
+	C : OrderAddrFormCtrl	/ M : 없음	/ V : order_addr_form.jsp
+ : 결제화면-기본 주소 변경 처리(order_addr_proc) : 기본 주소 변경 처리
+ 	C : OrderAddrProcCtrl	/ M : OrderAddrProcSvc, OrderAddrProcDao	/ V : ajax
+ : 구매처리(order_proc_in) : 구매 처리
+	C : OrderProcInCtrl	/ M : OrderProcInSvc, OrderProcDao	/ V : order_end 호출
+ : 구매확인(order_end) : 처리가 끝난 구매의 확인 화면
+	C : OrderEndCtrl	/ M : OrderEndSvc, OrderProcDao		/ V : order_end.jsp
+
+/order/ 주문 내역, 구매 내역, 구매 내역 상세 보기, 판매 내역, 판매 내역 상세 보기
+ : 정보저장 클래스 : OrderList, BuyInfo, BuyDetail, SellInfo
+ : 주문 내역 목록(order_list) : 구매, 판매 구분 없이 회원의 모든 거래 내역을 보여주는 목록
+ 	C : OrderListCtrl	/ M : OrderListSvc, OrderProcDao	/ V : order_list.jsp
+ : 구매 내역 목록(buy_list) : 회원의 구매 내역을 보여주는 목록
+ 	C : BuyListCtrl	/ M : BuyListSvc, OrderProcDao	/ V : buy_list.jsp
+ : 구매 내역 상세 보기(buy_view) : 회원의 특정 구매 내역의 상세 정보를 보여주는 화면
+ 	C : BuyViewCtrl	/ M : BuyViewSvc, OrderProcDao	/ V : buy_view.jsp
+ : 판매 내역 목록(sell_list) : 회원의 구매 내역을 보여주는 목록
+ 	C : SellListCtrl	/ M : SellListSvc, OrderProcDao	/ V : sell_list.jsp
+ : 구매 내역 상세 보기(sell_view) : 회원의 특정 구매 내역의 상세 정보를 보여주는 화면
+ 	C : SellViewCtrl	/ M : SellViewSvc, OrderProcDao	/ V : sell_view.jsp
+
+
+/bbs/ 1:1문의
+ : 정보저장 클래스 : MemberQuestion
+ : 1:1문의 목록(member_question_list) : 로그인한 회원의 문의 목록
+	C : MemberQuestionListCtrl		/ M : MemberQuestionListSvc, MemberQuestionDao		/ V : member_question_list.jsp
+ : 1:1문의 등록 폼(member_question_form) : 로그인한 회원의 문의 등록 폼
+	C : MemberQuestionFormCtrl		/ M : 없음		/ V : member_question_form.jsp
+ : 1:1문의 등록 처리(member_question_proc) : 문의 등록 처리
+	C : MemberQuestionProcCtrl		/ M : MemberQuestionProcSvc, MemberQuestionDao		/ V : member_question_view 호출
+ : 1:1문의 보기(member_question_view) : 로그인한 회원의 특정 문의 보기
+	C : MemberQuestionViewCtrl		/ M : MemberQuestionViewSvc, MemberQuestionDao		/ V : member_question_view.jsp
+
+/bbs/ 시세
+ : 정보저장 클래스 : BuyInfo, BuyDetail
+ : 시세 목록(buy_chart) : 시세 목록
+	C : BuyChartCtrl		/ M : BuyChartSvc, OrderProcDao		/ V : buy_chart.jsp
+	
+/bbs/ 공지사항
+ : 정보저장 클래스 : BbsNotice
+ : 공지사항 목록(notice_list) : 공지사항 목록
+	C : NoticeListCtrl		/ M : NoticeListSvc, NoticeProcDao		/ V : notice_list.jsp
+ : 공지사항 보기(notice_view) : 공지사항 보기
+	C : NoticeViewCtrl		/ M : NoticeViewSvc, NoticeProcDao		/ V : notice_view.jsp
+	
+/bbs/ FAQ
+ : 정보저장 클래스 : BbsQuestion
+ : FAQ 목록(faq) : FAQ 목록 및 내용
+	C : FAQCtrl		/ M : FAQSvc, FAQDao		/ V : faq.jsp
+
+/bbs/ 이벤트
+ : 정보저장 클래스 : BbsEvent
+ : 이벤트 목록(event_list) : 이벤트 목록
+	C : EventListCtrl		/ M : EventListSvc, EventProcDao		/ V : event_list.jsp
+ : 이벤트 보기(event_view) : 이벤트 보기
+	C : EventViewCtrl		/ M : EventViewSvc, EventProcDao		/ V : event_view.jsp
+	
+/bbs/ 리뷰
+ : 정보저장 클래스 : BbsReview
+ : 리뷰 목록(review_list) : 리뷰 목록
+	C : ReviewListCtrl		/ M : ReviewListSvc, ReviewProcDao		/ V : review_list.jsp
+ : 리뷰 등록 폼(review_form) : 리뷰 등록 폼
+	C : ReviewFormCtrl		/ M : 없음		/ V : review_form.jsp
+ : 리뷰 등록 처리(review_proc) : 리뷰 등록 처리
+	C : ReviewProcCtrl		/ M : ReviewProcSvc, ReviewDao		/ V : review_view 호출
+ : 리뷰 보기(review_view) : 리뷰 보기
+	C : ReviewViewCtrl		/ M : ReviewViewSvc, ReviewProcDao		/ V : review_view.jsp
+
+
+/bbs/ 자유게시판 : 목록(페이징, 검색), 입력, 수정, 삭제, 보기, 댓글 목록, 댓글 추가, 댓글 삭제
+ : 정보 저장 클래스 : BbsFree, BbsFreeReply
+ : 목록(free_list)
+	C : FreeListCtrl	/ M : FreeListSvc, FreeProcDao		/ V : free_list.jsp
+ : 보기(free_view)
+	C : FreeViewCtrl	/ M : FreeViewSvc, FreeProcDao		/ V : free_view.jsp
+
+ : 입력폼(free_form_in)
+	C : FreeFormInCtrl	/ M : 없음							/ V : free_form_in.jsp
+ : 입력처리(free_proc_in)
+	C : FreeProcInCtrl	/ M : FreeProcInSvc, FreeProcDao	/ V : free_view 호출
+
+ : 수정폼(free_form_up)
+	C : FreeFormUpCtrl	/ M : FreeFormUpSvc, FreeProcDao	/ V : free_form_up.jsp
+ : 수정처리(free_proc_up)
+	C : FreeProcUpCtrl	/ M : FreeProcUpSvc, FreeProcDao	/ V : free_view 호출
+
+ : 삭제처리(free_proc_del)
+	C : FreeProcDelCtrl	/ M : FreeProcDelSvc, FreeProcDao/ V : free_list 호출
+
+: 댓글 목록(free_view - 게시글 보기의 컨트롤러를 이용)
+	C : FreeViewCtrl	/ M : FreeReplyListSvc, FreeReplyProcDao		/ V : free_view.jsp
+
+: 댓글 등록 처리(free_reply_proc_in)
+	C : FreeReplyProcInCtrl	/ M : FreeReplyProcInSvc, FreeReplyProcDao	/ V : ajax
+
+: 댓글 삭제 처리(free_reply_proc_del)
+	C : FreeReplyProcDelCtrl	/ M : FreeReplyProcDelSvc, FreeReplyProcDao	/ V : free_view.jsp
